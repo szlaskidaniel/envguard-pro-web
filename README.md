@@ -218,7 +218,3 @@ When nested keys are missing:
 | `--aws-region <region>` | AWS region (defaults to `AWS_REGION` or serverless.yml) |
 | `--aws-profile <profile>` | AWS profile (defaults to serverless.yml `provider.profile`) |
 
-
-## License
-
-MIT
