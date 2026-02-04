@@ -429,6 +429,74 @@
   .trust-card h4 { color: #fff; font-size: .95rem; margin-bottom: 6px; }
   .trust-card p  { color: var(--text-muted); font-size: .88rem; }
 
+  /* ─── FAQ ─── */
+  .faq { padding: 100px 0; background: linear-gradient(180deg, transparent, rgba(129,140,248,.03) 55%, transparent); }
+  .faq-list { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  .faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 18px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 18px;
+    color: #fff;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:focus-visible { outline: 2px solid rgba(56,189,248,.35); outline-offset: 2px; border-radius: var(--radius-sm); }
+  .faq-q { flex: 1; }
+  .faq-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.04);
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    transition: transform .18s ease, color .18s ease, border-color .18s ease;
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); color: var(--accent); border-color: rgba(56,189,248,.28); }
+  .faq-answer {
+    padding: 0 22px 18px;
+    color: var(--text-muted);
+    font-size: .92rem;
+  }
+  .faq-answer p { margin-top: 10px; }
+  .faq-answer ul { margin: 10px 0 0 20px; display: flex; flex-direction: column; gap: 6px; }
+  .faq-answer code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    background: rgba(56,189,248,.08);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: .9em;
+  }
+  .faq-pre {
+    margin-top: 12px;
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    overflow-x: auto;
+  }
+  .faq-pre code {
+    background: transparent;
+    color: var(--text);
+    padding: 0;
+    border-radius: 0;
+    font-size: .86rem;
+    line-height: 1.65;
+    white-space: pre;
+    display: block;
+  }
+
   /* ─── CTA ─── */
   .cta {
     padding: 100px 0;
@@ -495,6 +563,7 @@
       <a href="#aws">AWS</a>
       <a href="#sarif">SARIF</a>
       <a href="#trust">Trust</a>
+      <a href="#faq">FAQ</a>
       <a href="https://github.com/szlaskidaniel/envguard" class="btn-nav">GitHub →</a>
     </div>
   </div>
@@ -948,6 +1017,116 @@
         <h4>Sandboxable</h4>
         <p>Not comfortable? Audit network traffic or run it in a sandboxed environment. Full flexibility is yours.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="badge section-label">Help</span>
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-sub">Quick answers to common questions about EnvGuard Pro.</p>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">Is EnvGuard Pro intended for beginners?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p>This tool is intended for professionals. Remember to back up your data before using it.</p>
+        </div>
+      </details>
+
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">What AWS IAM permissions are required for <code>--aws</code> / <code>--aws-deep</code>?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p><strong style="color:var(--text);">Required IAM Permissions:</strong></p>
+          <ul>
+            <li><code>ssm:GetParameter</code> — for SSM Parameter Store validation (<code>--aws</code>)</li>
+            <li><code>secretsmanager:DescribeSecret</code> — for Secrets Manager validation (<code>--aws</code>)</li>
+            <li><code>secretsmanager:GetSecretValue</code> — required for <code>--aws-deep</code> (reads the secret JSON to validate nested keys like <code>host</code> and <code>port</code>)</li>
+          </ul>
+          <p>Use <code>--aws-deep</code> to validate that the referenced nested keys actually exist within the secret JSON.</p>
+          <p>We do not store or log retrieved secret values — they are used only in-memory to check presence and report validation results.</p>
+        </div>
+      </details>
+
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">Why is the source code obfuscated?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p>EnvGuard Pro is distributed with obfuscated sources to protect intellectual property while keeping full functionality. The open-source core is available on GitHub.</p>
+        </div>
+      </details>
+
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">Does EnvGuard Pro collect telemetry or send data anywhere?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p>No. There is no telemetry or data collection. The only network calls are explicit AWS SDK operations when you opt in via <code>--aws</code> / <code>--aws-deep</code>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">How do I configure EnvGuard Pro?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p>Use <code>.envguardrc.json</code> (or <code>package.json</code>) for config. CLI flags override configuration values.</p>
+          <p><strong style="color:var(--text);">Example <code>.envguardrc.json</code>:</strong></p>
+          <pre class="faq-pre"><code>{
+  "ignoreVars": ["MY_COMPANY_VAR", "PLATFORM_VAR"],
+  "strict": false,
+  "detectFallbacks": true,
+  "exclude": ["**/build/**", "**/tmp/**"],
+  "envFiles": ["set-env.sh", "another-env.sh"]
+}</code></pre>
+          <p><strong style="color:var(--text);">Common overrides:</strong></p>
+          <ul>
+            <li><code>--strict</code> to enable strict mode regardless of config</li>
+            <li><code>--no-detect-fallbacks</code> to treat missing vars as errors (ignore fallbacks)</li>
+            <li><code>--env-files set-env.sh</code> to add shell env sources without editing config</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">What is fallback detection?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p>Fallback detection distinguishes between <strong style="color:var(--amber);">warnings</strong> (env vars used with fallbacks) and <strong style="color:var(--red);">errors</strong> (env vars that will crash when missing). Disable it with <code>--no-detect-fallbacks</code> or set <code>detectFallbacks</code> to <code>false</code> in config.</p>
+        </div>
+      </details>
+
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">How do I use EnvGuard Pro in CI?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p>Use <code>--ci</code> to integrate EnvGuard Pro into CI/CD. It sets the exit code so your pipeline can fail fast.</p>
+          <p><strong style="color:var(--text);">What happens with <code>--ci</code>:</strong></p>
+          <ul>
+            <li>Exits with code 1 if any missing environment variables (errors) are found</li>
+            <li>Exits with code 1 if any AWS resources are missing (when using <code>--aws</code>)</li>
+            <li>Exits with code 0 if only warnings or info-level issues are found</li>
+          </ul>
+          <p><strong style="color:var(--text);">Examples:</strong></p>
+          <ul>
+            <li><code>envguard-pro scan --ci</code></li>
+            <li><code>envguard-pro scan --ci --strict</code> (fail on any issue including warnings)</li>
+            <li><code>envguard-pro scan --ci --aws</code> (include AWS validation)</li>
+            <li><code>envguard-pro scan --ci --no-detect-fallbacks</code> (treat fallbacks as errors)</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">Can it scan env vars defined in shell scripts?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p>Yes. Use <code>envFiles</code> in <code>.envguardrc.json</code> or pass <code>--env-files</code> to include <code>export</code>-based variables from shell scripts like <code>set-env.sh</code>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item fade-up">
+        <summary><span class="faq-q">How do I generate a SARIF report for GitHub Security?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer">
+          <p>Run <code>envguard-pro scan --format sarif --output results.sarif</code> and upload the SARIF to GitHub Security in your CI pipeline.</p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
