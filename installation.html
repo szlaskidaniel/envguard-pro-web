@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Installation — EnvGuard Pro</title>
+<meta name="description" content="Install EnvGuard Pro via npm (global CLI) or from a private tarball (.tgz) in your project. Step-by-step commands and verification." />
+<style>
+
+  /* ─── Reset & Base ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #0a0e17;
+    --bg-card:     #111827;
+    --bg-card-alt: #1a2332;
+    --border:      rgba(255,255,255,.08);
+    --text:        #e2e8f0;
+    --text-muted:  #8b95a5;
+    --accent:      #38bdf8;        /* sky-400 */
+    --accent-glow: rgba(56,189,248,.25);
+    --green:       #4ade80;
+    --amber:       #fbbf24;
+    --red:         #f87171;
+    --radius:      12px;
+    --radius-sm:   8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ─── Utility ─── */
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(56,189,248,.12); border: 1px solid rgba(56,189,248,.25);
+    color: var(--accent); font-size: .78rem; font-weight: 600;
+    letter-spacing: .04em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 100px;
+  }
+  .badge--green { background: rgba(74,222,128,.12); border-color: rgba(74,222,128,.25); color: var(--green); }
+
+  /* ─── Nav ─── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,14,23,.85);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 62px;
+  }
+  .nav-logo { font-size: 1.15rem; font-weight: 700; color: #fff; letter-spacing: -.02em; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { color: var(--text-muted); font-size: .9rem; transition: color .2s; }
+  .nav-links a:hover { color: #fff; text-decoration: none; }
+  .nav-links .btn-nav {
+    background: var(--accent); color: #0a0e17; font-weight: 700;
+    padding: 7px 18px; border-radius: 100px; font-size: .85rem;
+    transition: opacity .2s;
+  }
+  .nav-links .btn-nav:hover { opacity: .85; text-decoration: none; }
+
+  /* ─── Hero ─── */
+  .hero {
+    position: relative;
+    padding: 130px 0 100px;
+    text-align: center;
+  }
+  /* Gradient mesh background */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 40%, rgba(56,189,248,.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 60%, rgba(99,102,241,.10) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 50% 90%, rgba(74,222,128,.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero > * { position: relative; z-index: 1; }
+
+  .hero-badge { margin-bottom: 22px; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    font-weight: 800; letter-spacing: -.03em; line-height: 1.1;
+    color: #fff;
+    max-width: 700px; margin: 0 auto 24px;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(135deg, var(--accent), #818cf8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--text-muted); font-size: 1.15rem;
+    max-width: 560px; margin: 0 auto 40px;
+  }
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary, .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 28px; border-radius: 100px; font-weight: 700;
+    font-size: .92rem; transition: all .2s; cursor: pointer; border: none;
+  }
+  .btn-primary {
+    background: var(--accent); color: #0a0e17;
+    box-shadow: 0 0 28px var(--accent-glow);
+  }
+  .btn-primary:hover { box-shadow: 0 0 40px var(--accent-glow); opacity: .9; text-decoration: none; }
+  .btn-secondary {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.04); text-decoration: none; }
+
+  /* ─── Install strip ─── */
+  .install-strip {
+    background: var(--bg-card); border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  .install-code {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .install-code code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    background: rgba(255,255,255,.06); padding: 8px 18px;
+    border-radius: var(--radius-sm); color: var(--green); font-size: .9rem;
+  }
+  .copy-btn {
+    background: rgba(255,255,255,.08); border: 1px solid var(--border);
+    color: var(--text-muted); width: 36px; height: 36px;
+    border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .copy-btn:hover { background: rgba(255,255,255,.14); }
+
+  /* ─── Section titles ─── */
+  .section-label { margin-bottom: 10px; }
+  .section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+    font-weight: 700; color: #fff; letter-spacing: -.02em;
+    margin-bottom: 12px;
+  }
+  .section-sub { color: var(--text-muted); max-width: 540px; font-size: 1.02rem; }
+  .section-head { text-align: center; margin-bottom: 60px; }
+  .section-head .section-sub { margin: 0 auto; }
+
+  /* ─── Free vs Pro compare ─── */
+  .compare { padding: 100px 0; background: linear-gradient(180deg, transparent, rgba(56,189,248,.02) 60%, transparent); }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .compare-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 32px 32px;
+    position: relative;
+    overflow: visible;
+  }
+  .compare-card.pro {
+    border-color: rgba(56,189,248,.35);
+    box-shadow: 0 15px 50px rgba(56,189,248,.08);
+    overflow: hidden;
+  }
+  .compare-card.pro::before {
+    content: 'PRO Advantage';
+    position: absolute;
+    top: 36px;
+    right: -45px;
+    background: linear-gradient(135deg, var(--accent), #818cf8);
+    color: #0a0e17; font-size: .68rem; font-weight: 800;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: 8px 45px;
+    transform: rotate(45deg);
+    transform-origin: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  }
+  .compare-card h3 { color: #fff; font-size: 1.25rem; margin-bottom: 8px; }
+  .compare-card p { color: var(--text-muted); font-size: .95rem; }
+  .compare-list { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .compare-item { display: flex; gap: 14px; align-items: flex-start; }
+  .compare-status {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .95rem;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+  }
+  .compare-status.good { background: rgba(74,222,128,.15); color: var(--green); }
+  .compare-status.more { background: rgba(56,189,248,.15); color: var(--accent); }
+  .compare-status.limit { background: rgba(248,113,113,.15); color: var(--red); }
+  .compare-item strong { color: var(--text); display: block; font-size: .98rem; }
+  .compare-note {
+    margin-top: 32px;
+    padding: 22px 26px;
+    border-radius: var(--radius-sm);
+    border: 1px dashed rgba(255,255,255,.18);
+    background: rgba(17,24,39,.8);
+    color: var(--text-muted);
+    font-size: .92rem;
+  }
+
+  /* ─── Free vs Pro tiers ─── */
+  .tiers { padding: 100px 0; }
+  .tier-table-wrap { overflow-x: auto; }
+  .tier-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+    margin: 16px 0 0;
+  }
+  .tier-table th,
+  .tier-table td {
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    text-align: left;
+    font-size: .92rem;
+  }
+  .tier-table th {
+    background: rgba(255,255,255,.02);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-size: .8rem;
+    color: var(--text-muted);
+  }
+  .tier-table td strong { color: var(--text); }
+  .tier-table td.free { color: var(--text-muted); }
+  .tier-table td.pro { color: var(--accent); font-weight: 600; }
+  .tier-highlight {
+    margin-top: 32px;
+    padding: 26px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(56,189,248,.25);
+    background: rgba(17,24,39,.92);
+    box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  }
+  .tier-highlight p { color: var(--text-muted); margin-bottom: 20px; }
+  .tier-highlight code {
+    background: rgba(56,189,248,.08);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: .9rem;
+  }
+  .tier-snippets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .tier-snippet {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: .86rem;
+    color: var(--text);
+  }
+  .tier-snippet-label {
+    display: block;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .tier-snippet pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.65;
+  }
+
+  /* ─── Features grid ─── */
+  .features { padding: 100px 0; }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .feature-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px 28px;
+    transition: border-color .25s, transform .25s;
+    position: relative; overflow: hidden;
+  }
+  .feature-card:hover {
+    border-color: rgba(56,189,248,.35);
+    transform: translateY(-3px);
+  }
+  .feature-card.pro::before {
+    content: 'PRO';
+    position: absolute; top: 16px; right: 16px;
+    font-size: .68rem; font-weight: 800; letter-spacing: .08em;
+    background: linear-gradient(135deg, var(--accent), #818cf8);
+    color: #fff; padding: 3px 10px; border-radius: 100px;
+  }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 20px;
+  }
+  .icon-blue   { background: rgba(56,189,248,.15); }
+  .icon-green  { background: rgba(74,222,128,.15); }
+  .icon-purple { background: rgba(129,140,248,.15); }
+  .icon-amber  { background: rgba(251,191,36,.15); }
+
+  .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .feature-card p  { color: var(--text-muted); font-size: .92rem; }
+
+  /* ─── How it works ─── */
+  .how { padding: 100px 0; background: linear-gradient(180deg, transparent, rgba(56,189,248,.03) 50%, transparent); }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 36px; counter-reset: steps; }
+  .step { text-align: center; position: relative; }
+  .step-number {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--bg-card); border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; font-weight: 800; color: var(--accent);
+    margin: 0 auto 20px;
+  }
+  .step h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .step p  { color: var(--text-muted); font-size: .9rem; max-width: 240px; margin: 0 auto; }
+  /* connector lines */
+  @media (min-width: 720px) {
+    .steps { position: relative; }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute;
+      top: 26px; left: calc(50% + 30px);
+      width: calc(100% - 60px); height: 2px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+  }
+
+  /* ─── Code / SARIF demo ─── */
+  .demo { padding: 100px 0; }
+  .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  @media (max-width: 720px) { .demo-grid { grid-template-columns: 1fr; } }
+
+  .demo-text .section-sub { margin-bottom: 24px; }
+  .demo-list { list-style: none; margin-top: 20px; }
+  .demo-list li {
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 12px;
+    color: var(--text-muted); font-size: .93rem;
+  }
+  .demo-list li:last-child { border-bottom: none; }
+  .demo-list .check { color: var(--green); font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .demo-list li strong { color: var(--text); }
+
+  .code-window {
+    background: #0d1117; border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,.4);
+  }
+  .code-window-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; background: #161b22;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-red { background: #f87171; } .dot-amber { background: #fbbf24; } .dot-green { background: #4ade80; }
+  .code-window-title { margin-left: 8px; font-size: .78rem; color: var(--text-muted); font-family: monospace; }
+  .code-block {
+    padding: 20px; font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: .82rem; line-height: 1.75; overflow-x: auto;
+    white-space: pre;
+  }
+  /* syntax colours */
+  .c-dim   { color: #484f58; }
+  .c-key   { color: #ff7b72; }
+  .c-str   { color: #a5d6ff; }
+  .c-fn    { color: #d2a8ff; }
+  .c-num   { color: #79c0ff; }
+  .c-ok    { color: #4ade80; }
+  .c-warn  { color: #fbbf24; }
+  .c-err   { color: #f87171; }
+  .c-muted { color: #8b949e; }
+
+  /* ─── AWS section ─── */
+  .aws { padding: 100px 0; }
+  .aws-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  @media (max-width: 720px) { .aws-grid { grid-template-columns: 1fr; } .aws-grid > :first-child { order: 2; } }
+
+  .aws-cards { display: flex; flex-direction: column; gap: 16px; }
+  .aws-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px 24px;
+    display: flex; gap: 18px; align-items: flex-start;
+    transition: border-color .2s;
+  }
+  .aws-card:hover { border-color: rgba(251,191,36,.3); }
+  .aws-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: rgba(251,191,36,.1); display: flex;
+    align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+  }
+  .aws-card h4 { color: #fff; font-size: .95rem; margin-bottom: 4px; }
+  .aws-card p  { color: var(--text-muted); font-size: .88rem; }
+
+  /* ─── Trust / transparency ─── */
+  .trust { padding: 100px 0; }
+  .trust-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
+  }
+  .trust-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 24px;
+  }
+  .trust-card .trust-icon { font-size: 1.6rem; margin-bottom: 14px; }
+  .trust-card h4 { color: #fff; font-size: .95rem; margin-bottom: 6px; }
+  .trust-card p  { color: var(--text-muted); font-size: .88rem; }
+
+  /* ─── CTA ─── */
+  .cta {
+    padding: 100px 0;
+    text-align: center;
+  }
+  .cta-box {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 24px; padding: 80px 40px;
+    position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 30% 50%, rgba(56,189,248,.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 75% 50%, rgba(129,140,248,.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-box > * { position: relative; z-index: 1; }
+  .cta-box h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: -.02em;
+  }
+  .cta-box p { color: var(--text-muted); max-width: 480px; margin: 0 auto 36px; font-size: 1.02rem; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* ─── Footer ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-inner p { color: var(--text-muted); font-size: .82rem; }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { color: var(--text-muted); font-size: .82rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--accent); text-decoration: none; }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 600px) {
+    .nav-links { gap: 14px; }
+    .nav-links a:not(.btn-nav) { display: none; }
+    .hero { padding: 90px 0 70px; }
+    .features, .how, .demo, .aws, .trust, .cta { padding: 70px 0; }
+  }
+
+  /* ─── Fade-in animation ─── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── Install page helpers ─── */
+  .hero.hero--compact { padding: 110px 0 70px; }
+  .hero-crumbs { color: var(--text-muted); font-size: .9rem; margin-bottom: 10px; }
+  .hero-crumbs a { color: var(--text-muted); }
+  .hero-crumbs a:hover { color: #fff; text-decoration: none; }
+  .snippet-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 10px;
+  }
+  .snippet-title {
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-muted);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ─── Nav ─── -->
+<nav>
+  <div class="container nav-inner">
+    <div class="nav-logo">Env<span>Guard</span> Pro</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#project">Installation</a>
+      <a href="#verify">Verify</a>
+      <a href="#troubleshoot">Troubleshoot</a>
+      <a href="https://github.com/szlaskidaniel/envguard" class="btn-nav">GitHub →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section class="hero hero--compact">
+  <div class="container">
+    <div class="hero-crumbs"><a href="index.html">EnvGuard Pro</a> / Installation</div>
+    <div class="hero-badge"><span class="badge badge--green">● Step-by-step</span></div>
+    <h1>Install EnvGuard Pro.<br><span class="grad">From a package tarball.</span></h1>
+    <p class="hero-sub">
+      EnvGuard Pro is distributed as a <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">.tgz</code> package you install into your project.
+      This page includes copy-paste commands and a quick verification checklist.
+    </p>
+    <div class="hero-actions">
+      <a href="#project" class="btn-primary">Install →</a>
+      <a href="index.html" class="btn-secondary">Back to home</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Project install ─── -->
+<section class="how" id="project">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="badge section-label">Private distribution</span>
+      <h2 class="section-title">Install from a tarball (.tgz)</h2>
+      <p class="section-sub">Use this when EnvGuard Pro is provided as a downloadable archive from a private GitHub repository.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-number">1</div>
+        <h3>Obtain the package</h3>
+        <p>Download the <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">.tgz</code> archive from the private repository (requires access).</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-number">2</div>
+        <h3>Place it in <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">libs/</code></h3>
+        <p>Keep the archive in your project so installs are reproducible (and work offline).</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-number">3</div>
+        <h3>Install via npm</h3>
+        <p>Point npm at the local archive to add it to <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">node_modules</code>.</p>
+      </div>
+    </div>
+
+    <div class="compare-note fade-up" style="max-width: 920px; margin-left:auto; margin-right:auto;">
+      Tip: npm tarballs commonly use the <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">.tgz</code> extension (still a <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">.tar.gz</code> under the hood).
+    </div>
+
+    <div class="tier-highlight fade-up" style="margin-top: 32px;">
+      <p style="margin-bottom: 18px;">Example layout and commands (adjust the filename/version you received):</p>
+      <div class="tier-snippets">
+        <div class="tier-snippet">
+          <div class="snippet-head">
+            <span class="snippet-title">Project structure</span>
+            <span class="sr-only">Folder layout</span>
+          </div>
+          <pre>your-project/
+├── libs/
+│   └── danielszlaski-envguard-pro-1.0.0.tgz
+├── src/
+├── package.json
+└── …</pre>
+        </div>
+        <div class="tier-snippet">
+          <div class="snippet-head">
+            <span class="snippet-title">Install</span>
+            <button class="copy-btn" data-copy="npm install ./libs/danielszlaski-envguard-pro-1.0.0.tgz" onclick="copyBtn(this)" aria-label="Copy install command">📋</button>
+          </div>
+          <pre>$ npm install ./libs/danielszlaski-envguard-pro-1.0.0.tgz</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Verify ─── -->
+<section class="demo" id="verify">
+  <div class="container">
+    <div class="demo-grid">
+      <div class="demo-text fade-up">
+        <span class="badge section-label">Sanity check</span>
+        <h2 class="section-title">Verify the install</h2>
+        <p class="section-sub">Run these commands from your project root. If your setup exposes <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">envguard</code> instead of <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">envguard-pro</code>, the commands are interchangeable.</p>
+        <ul class="demo-list">
+          <li><span class="check">✓</span><div><strong>Version</strong><br/>Run <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">npx envguard-pro --version</code> (or <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">npx envguard --version</code>).</div></li>
+          <li><span class="check">✓</span><div><strong>Help output</strong><br/>Confirm the CLI responds with <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">--help</code>.</div></li>
+        </ul>
+      </div>
+
+      <div class="code-window fade-up" aria-label="Verification commands">
+        <div class="code-window-bar">
+          <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
+          <span class="code-window-title">terminal</span>
+          <span style="margin-left:auto;"></span>
+          <button class="copy-btn" data-copy="npx envguard-pro --version\nnpx envguard-pro --help\n\n# (If your setup exposes 'envguard' instead)\n# npx envguard --version\n# npx envguard --help" onclick="copyBtn(this)" aria-label="Copy verification commands">📋</button>
+        </div>
+        <div class="code-block">$ npx envguard-pro --version
+$ npx envguard-pro --help
+
+# (If your setup exposes 'envguard' instead)
+# $ npx envguard --version
+# $ npx envguard --help</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Troubleshooting ─── -->
+<section class="features" id="troubleshoot">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="badge section-label">Help</span>
+      <h2 class="section-title">Troubleshooting</h2>
+      <p class="section-sub">Common install issues and quick fixes.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon icon-blue">🧰</div>
+        <h3>Command not found</h3>
+        <p>Use <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">npx envguard-pro</code> (or <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">npx envguard</code>) from your project root, or add an npm script, instead of calling a global binary.</p>
+      </div>
+
+      <div class="feature-card fade-up">
+        <div class="feature-icon icon-green">🧩</div>
+        <h3>Permissions / EACCES</h3>
+        <p>Make sure your project directory is user-writable and avoid running npm with elevated permissions.</p>
+      </div>
+
+      <div class="feature-card fade-up">
+        <div class="feature-icon icon-purple">🧪</div>
+        <h3>Node version mismatch</h3>
+        <p>Upgrade Node.js to a modern LTS if you see syntax or runtime errors during install or execution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="#project">Install</a>
+      <a href="https://github.com/szlaskidaniel/envguard">GitHub</a>
+      <a href="https://github.com/szlaskidaniel/envguard/issues">Issues</a>
+      <a href="https://www.npmjs.com/package/@danielszlaski/envguard-pro">npm</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── Scripts ─── -->
+<script>
+function copyBtn(btn) {
+  const text = btn?.dataset?.copy;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓';
+    setTimeout(() => { btn.textContent = '📋'; }, 1600);
+  });
+}
+
+// Intersection Observer — fade-up on scroll
+(function() {
+  const els = document.querySelectorAll('.fade-up');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+})();
+</script>
+
+</body>
+</html>

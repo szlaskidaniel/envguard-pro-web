@@ -46,6 +46,8 @@ Use the free version when you just need the baseline `.env` scanning workflow, a
 
 ## Installation
 
+For a dedicated, step-by-step install page (same layout as the site), see `installation.html`.
+
 EnvGuard Pro is distributed as a `.tar.gz` package from a private GitHub repository. Follow the steps below to install it in your project.
 
 ### 1. Obtain the package

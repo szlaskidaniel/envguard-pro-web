@@ -490,6 +490,7 @@
     <div class="nav-logo">Env<span>Guard</span> Pro</div>
     <div class="nav-links">
       <a href="#features">Features</a>
+      <a href="installation.html">Installation</a>
       <a href="#how">How it works</a>
       <a href="#aws">AWS</a>
       <a href="#sarif">SARIF</a>
@@ -509,7 +510,7 @@
       SARIF reports, AWS SSM validation, and smart fallback detection — all in one CLI tool.
     </p>
     <div class="hero-actions">
-      <a href="#install" class="btn-primary">Get started →</a>
+      <a href="installation.html" class="btn-primary">Get started →</a>
       <a href="https://github.com/szlaskidaniel/envguard" class="btn-secondary">View source</a>
     </div>
   </div>
@@ -518,7 +519,7 @@
 <!-- ─── Install strip ─── -->
 <div class="install-strip" id="install">
   <div class="container install-code">
-    <code>npm install -g @danielszlaski/envguard-pro</code>
+    <code>npm install ./libs/danielszlaski-envguard-pro-1.0.0.tgz</code>
     <button class="copy-btn" onclick="copyInstall(this)" aria-label="Copy install command">📋</button>
   </div>
 </div>
@@ -968,8 +969,9 @@
 <!-- ─── Footer ─── -->
 <footer>
   <div class="container footer-inner">
-    <p>© 2026 Daniel Szlaski · EnvGuard Pro · MIT License</p>
+    <p>© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
     <div class="footer-links">
+      <a href="installation.html">Installation</a>
       <a href="https://github.com/szlaskidaniel/envguard">GitHub</a>
       <a href="https://github.com/szlaskidaniel/envguard/issues">Issues</a>
       <a href="https://www.npmjs.com/package/@danielszlaski/envguard-pro">npm</a>
@@ -981,7 +983,7 @@
 <script>
 // Copy-to-clipboard for install command
 function copyInstall(btn) {
-  navigator.clipboard.writeText('npm install -g @danielszlaski/envguard-pro').then(() => {
+  navigator.clipboard.writeText('npm install ./libs/danielszlaski-envguard-pro-1.0.0.tgz').then(() => {
     btn.textContent = '✓';
     setTimeout(() => { btn.textContent = '📋'; }, 1600);
   });
