@@ -219,6 +219,76 @@
     font-size: .92rem;
   }
 
+  /* ─── Free vs Pro tiers ─── */
+  .tiers { padding: 100px 0; }
+  .tier-table-wrap { overflow-x: auto; }
+  .tier-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+    margin: 16px 0 0;
+  }
+  .tier-table th,
+  .tier-table td {
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    text-align: left;
+    font-size: .92rem;
+  }
+  .tier-table th {
+    background: rgba(255,255,255,.02);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-size: .8rem;
+    color: var(--text-muted);
+  }
+  .tier-table td strong { color: var(--text); }
+  .tier-table td.free { color: var(--text-muted); }
+  .tier-table td.pro { color: var(--accent); font-weight: 600; }
+  .tier-highlight {
+    margin-top: 32px;
+    padding: 26px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(56,189,248,.25);
+    background: rgba(17,24,39,.92);
+    box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  }
+  .tier-highlight p { color: var(--text-muted); margin-bottom: 20px; }
+  .tier-highlight code {
+    background: rgba(56,189,248,.08);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: .9rem;
+  }
+  .tier-snippets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .tier-snippet {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: .86rem;
+    color: var(--text);
+  }
+  .tier-snippet-label {
+    display: block;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .tier-snippet pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.65;
+  }
+
   /* ─── Features grid ─── */
   .features { padding: 100px 0; }
   .features-grid {
@@ -503,13 +573,74 @@
   </div>
 </section>
 
-<!-- ─── Compare Free vs Pro ─── -->
-<section class="compare" id="serverless">
+
+
+<!-- ─── Free vs Pro tiers (table) ─── -->
+<section class="tiers" id="tiers">
   <div class="container">
     <div class="section-head fade-up">
-      <span class="badge section-label">Free vs Pro</span>
-      <h2 class="section-title">See the whole serverless.yml, not just the surface</h2>
-      <p class="section-sub">Both editions cover the basics, but Pro keeps digging through every AWS resource, secret, and nested value so nothing slips into production.</p>
+      <span class="badge section-label">Choose your edition</span>
+      <h2 class="section-title">EnvGuard Free vs Pro</h2>
+      <p class="section-sub">Free nails the basics. Pro is for teams that need SARIF, AWS validation, and shell-script driven env sources.</p>
+    </div>
+
+    <div class="tier-table-wrap fade-up">
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>EnvGuard Free</th>
+            <th>EnvGuard Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Source availability</strong></td>
+            <td class="free">Fully open source under MIT</td>
+            <td class="pro">Distributed via npm with protected sources</td>
+          </tr>
+          <tr>
+            <td><strong>Custom shell env files</strong></td>
+            <td class="free">Not supported (reads `.env` inputs only)</td>
+            <td class="pro">`envFiles` lets you import reusable `.sh` snippets like `set-env.sh`</td>
+          </tr>
+          <tr>
+            <td><strong>SARIF output</strong></td>
+            <td class="free">—</td>
+            <td class="pro">`--format sarif` integrates with GitHub Security</td>
+          </tr>
+          <tr>
+            <td><strong>AWS validation</strong></td>
+            <td class="free">—</td>
+            <td class="pro">`--aws`, `--aws-deep`, profiles, and prefixes for SSM + Secrets</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tier-highlight fade-up">
+      <p>Stick with the free edition when you only need local `.env` analysis. Go Pro when you want CI-ready outputs, AWS guardrails, or the ability to load environment variables from curated shell scripts that the rest of your org already uses.</p>
+      <div class="tier-snippets">
+        <div class="tier-snippet">
+          <span class="tier-snippet-label">.envguardrc.json</span>
+          <pre>{
+  "envFiles": ["set-env.sh", "another-env.sh"]
+}</pre>
+        </div>
+        <div class="tier-snippet">
+          <span class="tier-snippet-label">CLI</span>
+          <pre>$ envguard-pro scan --env-files set-env.sh</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="container">
+    <div class="section-head fade-up">
+
     </div>
     <div class="compare-grid">
       <div class="compare-card fade-up">
@@ -567,11 +698,12 @@
         </ul>
       </div>
     </div>
-    <div class="compare-note fade-up">
-      Pro’s deeper serverless.yml parser is what surfaces AURORA_* style database settings that the free edition misses — it traces secrets back to the exact resource, so production and staging finally tell the same story.
-    </div>
+ 
   </div>
 </section>
+
+
+
 
 <!-- ─── How it works ─── -->
 <section class="how" id="how">

@@ -26,6 +26,17 @@ EnvGuard Pro is distributed with obfuscated source code to protect intellectual 
 
 If you have security concerns, please open an issue or contact the maintainer directly.
 
+## EnvGuard Free vs Pro
+
+| Capability | EnvGuard Free | EnvGuard Pro |
+|------------|---------------|--------------|
+| Source code | Fully open source (MIT) | Distributed via npm with obfuscated sources for IP protection |
+| Custom shell env files | Not supported – scans standard `.env` inputs only | Supports `envFiles` so you can import custom `.sh` scripts (for example `set-env.sh`) via config or `envguard-pro scan --env-files ...` |
+| SARIF output | Not available | `--format sarif` to upload into GitHub Security |
+| AWS validation | Not available | `--aws`, `--aws-deep`, and related flags validate SSM/Secrets before deploy |
+
+Use the free version when you just need the baseline `.env` scanning workflow, and upgrade to Pro when you want advanced CI-ready outputs, AWS checks, or the ability to pull environment variables from reusable shell snippets maintained outside of `.env` files.
+
 ## Features
 
 - **SARIF Output** - Integrate with GitHub Security tab for compliance tracking
@@ -217,4 +228,3 @@ When nested keys are missing:
 | `--aws-prefix <prefix>` | Prefix for fallback mode (e.g., `/myapp/prod/`) |
 | `--aws-region <region>` | AWS region (defaults to `AWS_REGION` or serverless.yml) |
 | `--aws-profile <profile>` | AWS profile (defaults to serverless.yml `provider.profile`) |
-
