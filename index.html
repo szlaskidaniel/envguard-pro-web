@@ -600,7 +600,7 @@
 <!-- ─── Install strip ─── -->
 <div class="install-strip" id="install">
   <div class="container install-code">
-    <code>npm install ./libs/danielszlaski-envguard-pro-1.0.0.tgz</code>
+    <code>npm install ./path/to/file.tgz</code>
     <button class="copy-btn" onclick="copyInstall(this)" aria-label="Copy install command">📋</button>
   </div>
 </div>
@@ -1225,7 +1225,7 @@
 <script>
 // Copy-to-clipboard for install command
 function copyInstall(btn) {
-  navigator.clipboard.writeText('npm install ./libs/danielszlaski-envguard-pro-1.0.0.tgz').then(() => {
+  navigator.clipboard.writeText('npm install ./path/to/file.tgz').then(() => {
     btn.textContent = '✓';
     setTimeout(() => { btn.textContent = '📋'; }, 1600);
   });
