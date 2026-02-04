@@ -161,6 +161,64 @@
   .section-head { text-align: center; margin-bottom: 60px; }
   .section-head .section-sub { margin: 0 auto; }
 
+  /* ─── Free vs Pro compare ─── */
+  .compare { padding: 100px 0; background: linear-gradient(180deg, transparent, rgba(56,189,248,.02) 60%, transparent); }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .compare-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 32px 32px;
+    position: relative;
+    overflow: visible;
+  }
+  .compare-card.pro {
+    border-color: rgba(56,189,248,.35);
+    box-shadow: 0 15px 50px rgba(56,189,248,.08);
+    overflow: hidden;
+  }
+  .compare-card.pro::before {
+    content: 'PRO Advantage';
+    position: absolute;
+    top: 36px;
+    right: -45px;
+    background: linear-gradient(135deg, var(--accent), #818cf8);
+    color: #0a0e17; font-size: .68rem; font-weight: 800;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: 8px 45px;
+    transform: rotate(45deg);
+    transform-origin: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  }
+  .compare-card h3 { color: #fff; font-size: 1.25rem; margin-bottom: 8px; }
+  .compare-card p { color: var(--text-muted); font-size: .95rem; }
+  .compare-list { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .compare-item { display: flex; gap: 14px; align-items: flex-start; }
+  .compare-status {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .95rem;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+  }
+  .compare-status.good { background: rgba(74,222,128,.15); color: var(--green); }
+  .compare-status.more { background: rgba(56,189,248,.15); color: var(--accent); }
+  .compare-status.limit { background: rgba(248,113,113,.15); color: var(--red); }
+  .compare-item strong { color: var(--text); display: block; font-size: .98rem; }
+  .compare-note {
+    margin-top: 32px;
+    padding: 22px 26px;
+    border-radius: var(--radius-sm);
+    border: 1px dashed rgba(255,255,255,.18);
+    background: rgba(17,24,39,.8);
+    color: var(--text-muted);
+    font-size: .92rem;
+  }
+
   /* ─── Features grid ─── */
   .features { padding: 100px 0; }
   .features-grid {
@@ -441,6 +499,76 @@
         <p>Surface <em>every</em> env var reference — including known runtime vars — for full visibility when you need it.</p>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ─── Compare Free vs Pro ─── -->
+<section class="compare" id="serverless">
+  <div class="container">
+    <div class="section-head fade-up">
+      <span class="badge section-label">Free vs Pro</span>
+      <h2 class="section-title">See the whole serverless.yml, not just the surface</h2>
+      <p class="section-sub">Both editions cover the basics, but Pro keeps digging through every AWS resource, secret, and nested value so nothing slips into production.</p>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-card fade-up">
+        <h3>Free Edition</h3>
+        <p>Great for quickly checking the obvious env blocks inside serverless.yml.</p>
+        <ul class="compare-list">
+          <li class="compare-item">
+            <div class="compare-status good">✓</div>
+            <div>
+              <strong>provider.environment</strong>
+              Reads top-level variables like <code style="color:var(--green);font-size:.85rem;">DATABASE_URL</code>.
+            </div>
+          </li>
+          <li class="compare-item">
+            <div class="compare-status good">✓</div>
+            <div>
+              <strong>functions.*.environment</strong>
+              Checks each function block for custom values before deploy.
+            </div>
+          </li>
+          <li class="compare-item">
+            <div class="compare-status limit">!</div>
+            <div>
+              <strong>Resources &amp; secrets</strong>
+              Stops before the AWS resources section, so custom ECS/Lambda containers and deeper secret references stay invisible.
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="compare-card pro fade-up">
+        <h3>Pro Edition</h3>
+        <p>Purpose-built for teams that rely on AWS infrastructure-as-code and want total coverage.</p>
+        <ul class="compare-list">
+          <li class="compare-item">
+            <div class="compare-status more">+</div>
+            <div>
+              <strong>Every env source</strong>
+              Sweeps the provider block, each function, and the AWS resources section so ECS, Lambda, and Step Functions containers stay honest.
+            </div>
+          </li>
+          <li class="compare-item">
+            <div class="compare-status more">+</div>
+            <div>
+              <strong>Nested secret lookups</strong>
+              Understands chained Secrets Manager values (think <code style="color:var(--accent);font-size:.85rem;">aurora.host</code>) and confirms the actual key that will load in prod.
+            </div>
+          </li>
+          <li class="compare-item">
+            <div class="compare-status more">+</div>
+            <div>
+              <strong>Smart AWS context</strong>
+              Resolves SSM paths, understands stages, and tells you which resource owns a missing variable so fixes are fast.
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="compare-note fade-up">
+      Pro’s deeper serverless.yml parser is what surfaces AURORA_* style database settings that the free edition misses — it traces secrets back to the exact resource, so production and staging finally tell the same story.
     </div>
   </div>
 </section>
