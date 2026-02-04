@@ -43,11 +43,37 @@ Use the free version when you just need the baseline `.env` scanning workflow, a
 - **AWS SSM Validation** - Verify environment variables exist in AWS Parameter Store
 - All features from [EnvGuard Free](https://github.com/szlaskidaniel/envguard)
 
+
 ## Installation
 
-```bash
-npm install -g @danielszlaski/envguard-pro
+EnvGuard Pro is distributed as a `.tar.gz` package from a private GitHub repository. Follow the steps below to install it in your project.
+
+### 1. Obtain the package
+
+Download the `.tar.gz` archive from the private repository (you need appropriate access).
+
+### 2. Place it in your project
+
+Copy the archive into a `libs/` folder at the root of your project:
+
 ```
+your-project/
+├── libs/
+│   └── danielszlaski-envguard-pro-1.0.0.tgz
+├── src/
+├── package.json
+└── ...
+```
+
+### 3. Install via npm
+
+Run the following command from your project root, pointing npm at the local archive:
+
+```bash
+npm install ./libs/danielszlaski-envguard-pro-1.0.0.tgz
+```
+
+npm will resolve the package from the local file and add it to `node_modules`. Once the command completes the package is ready to use — no additional configuration or registry setup is required.
 
 ## Usage
 
