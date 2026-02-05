@@ -406,6 +406,102 @@
   .c-err   { color: #f87171; }
   .c-muted { color: #8b949e; }
 
+  /* ─── SARIF screenshots carousel ─── */
+  .sarif-gallery {
+    margin-top: 28px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(255,255,255,.02);
+  }
+  .sarif-gallery-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .sarif-gallery-head h3 { margin: 0; font-size: 1rem; font-weight: 750; color: #fff; letter-spacing: -.01em; }
+  .sarif-gallery-head p { margin: 0; color: var(--text-muted); font-size: .9rem; }
+
+  .sarif-carousel { position: relative; }
+  .sarif-track {
+    display: flex; gap: 14px;
+    overflow-x: auto;
+    padding: 6px 44px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sarif-track::-webkit-scrollbar { height: 10px; }
+  .sarif-track::-webkit-scrollbar-thumb { background: rgba(148,163,184,.25); border-radius: 999px; }
+
+  .sarif-thumb {
+    flex: 0 0 220px;
+    height: 140px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #0b1220;
+    overflow: hidden;
+    cursor: pointer;
+    scroll-snap-align: start;
+    transition: border-color .2s, transform .2s;
+  }
+  .sarif-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.02); transition: transform .2s; }
+  .sarif-thumb:hover { border-color: rgba(56,189,248,.35); transform: translateY(-1px); }
+  .sarif-thumb:hover img { transform: scale(1.06); }
+
+  .sarif-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px; height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,.25);
+    background: rgba(15,23,42,.65);
+    color: #fff;
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: background .2s, border-color .2s, transform .2s;
+    user-select: none;
+  }
+  .sarif-nav:hover { background: rgba(15,23,42,.92); border-color: rgba(56,189,248,.35); transform: translateY(-50%) scale(1.04); }
+  .sarif-nav.prev { left: 10px; }
+  .sarif-nav.next { right: 10px; }
+  @media (max-width: 720px) {
+    .sarif-track { padding: 6px 10px; }
+    .sarif-nav { display: none; }
+  }
+
+  /* ─── Lightbox ─── */
+  .lightbox { position: fixed; inset: 0; z-index: 2000; display: none; }
+  .lightbox.open { display: block; }
+  .lightbox-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.72); backdrop-filter: blur(6px); }
+  .lightbox-figure {
+    position: relative;
+    max-width: min(1100px, 92vw);
+    max-height: 86vh;
+    margin: 6vh auto 0;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(13,17,23,.96);
+    box-shadow: 0 20px 90px rgba(0,0,0,.65);
+    overflow: hidden;
+  }
+  .lightbox-img { width: 100%; height: auto; max-height: 86vh; display: block; object-fit: contain; background: #000; }
+  .lightbox-cap {
+    padding: 10px 14px;
+    font-size: .86rem;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(255,255,255,.08);
+    background: rgba(0,0,0,.20);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 36px; height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    cursor: pointer;
+  }
+  .lightbox-close:hover { background: rgba(0,0,0,.70); }
+
   /* ─── AWS section ─── */
   .aws { padding: 100px 0; }
   .aws-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
@@ -702,19 +798,19 @@
 
     <div class="tier-highlight fade-up">
       <p>Stick with the free edition when you only need local `.env` analysis. Go Pro when you want CI-ready outputs, AWS guardrails, or the ability to load environment variables from curated shell scripts that the rest of your org already uses.</p>
-      <div class="tier-snippets">
-        <div class="tier-snippet">
-          <span class="tier-snippet-label">.envguardrc.json</span>
-          <pre>{
-  "envFiles": ["set-env.sh", "another-env.sh"]
-}</pre>
-        </div>
-        <div class="tier-snippet">
-          <span class="tier-snippet-label">CLI</span>
-          <pre>$ envguard-pro scan --env-files set-env.sh</pre>
-        </div>
-      </div>
-    </div>
+	      <div class="tier-snippets">
+	        <div class="tier-snippet">
+	          <span class="tier-snippet-label">.envguardrc.json</span>
+	          <pre>{
+	  "envFiles": ["set-env.sh", "another-env.sh"]
+	}</pre>
+	        </div>
+	        <div class="tier-snippet">
+	          <span class="tier-snippet-label">CLI</span>
+	          <pre>$ envguard scan --env-files set-env.sh</pre>
+	        </div>
+	      </div>
+	    </div>
 
   </div>
 
@@ -806,15 +902,15 @@
         <h3>Configure</h3>
         <p>Drop a <code style="color:var(--green);font-size:.85rem;">.envguardrc.json</code> in your project root or add options to <code style="color:var(--green);font-size:.85rem;">package.json</code>.</p>
       </div>
-      <div class="step fade-up">
-        <div class="step-number">3</div>
-        <h3>Scan</h3>
-        <p>Run <code style="color:var(--green);font-size:.85rem;">envguard-pro scan</code>. It statically analyses every file in your project.</p>
-      </div>
-      <div class="step fade-up">
-        <div class="step-number">4</div>
-        <h3>Act</h3>
-        <p>Errors and warnings are reported — fix, ignore, or push straight to GitHub Security via SARIF.</p>
+	      <div class="step fade-up">
+	        <div class="step-number">3</div>
+	        <h3>Scan</h3>
+	        <p>Run <code style="color:var(--green);font-size:.85rem;">envguard scan</code>. It statically analyses every file in your project.</p>
+	      </div>
+	      <div class="step fade-up">
+	        <div class="step-number">4</div>
+	        <h3>Act</h3>
+	        <p>Errors and warnings are reported — fix, ignore, or push straight to GitHub Security via SARIF.</p>
       </div>
     </div>
   </div>
@@ -888,15 +984,15 @@
       </div>
 
       <div class="fade-up">
-        <div class="code-window">
-          <div class="code-window-bar">
-            <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
-            <span class="code-window-title">terminal — envguard-pro scan --ci</span>
-          </div>
-          <div class="code-block"><span class="c-muted">$</span> envguard-pro scan --ci
-
+	        <div class="code-window">
+	          <div class="code-window-bar">
+	            <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
+	            <span class="code-window-title">terminal — envguard scan --ci</span>
+	          </div>
+	          <div class="code-block"><span class="c-muted">$</span> envguard scan --ci
+	
 <span class="c-dim">Loaded config from .envguardrc.json</span>
-
+	
 <span class="c-dim">Scanning env sources:</span>
   <span class="c-dim">•</span> <span class="c-str">serverless.yml</span>
 
@@ -931,15 +1027,15 @@
     <div class="aws-grid">
 
       <div class="fade-up">
-        <div class="code-window">
-          <div class="code-window-bar">
-            <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
-            <span class="code-window-title">terminal — envguard-pro scan --aws --aws-deep</span>
-          </div>
-          <div class="code-block"><span class="c-muted">$</span> envguard-pro scan --aws --aws-deep
-
+	        <div class="code-window">
+	          <div class="code-window-bar">
+	            <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
+	            <span class="code-window-title">terminal — envguard scan --aws --aws-deep</span>
+	          </div>
+	          <div class="code-block"><span class="c-muted">$</span> envguard scan --aws --aws-deep
+	
 <span class="c-ok">✔ All AWS resources validated</span>
-
+	
   <span class="c-muted">Secrets Manager (1):</span>
     <span class="c-muted">•</span> <span class="c-str">myapp/dev/aurora</span>
       <span class="c-muted">└─ host</span>  <span class="c-ok">✔</span>
@@ -1000,56 +1096,56 @@
         </ul>
       </div>
 
-      <div class="fade-up">
-        <div class="code-window">
-          <div class="code-window-bar">
-            <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
-            <span class="code-window-title">results.sarif</span>
-          </div>
-          <div class="code-block"><span class="c-dim">{</span>
-  <span class="c-key">"version"</span><span class="c-dim">:</span> <span class="c-str">"2.1.0"</span><span class="c-dim">,</span>
-  <span class="c-key">"$schema"</span><span class="c-dim">:</span> <span class="c-str">"https://…/sarif-schema-2.1.0.json"</span><span class="c-dim">,</span>
-  <span class="c-key">"runs"</span><span class="c-dim">: [{</span>
-    <span class="c-key">"tool"</span><span class="c-dim">: {</span>
-      <span class="c-key">"driver"</span><span class="c-dim">: {</span>
-        <span class="c-key">"name"</span><span class="c-dim">:</span> <span class="c-str">"EnvGuard Pro"</span><span class="c-dim">,</span>
-        <span class="c-key">"rules"</span><span class="c-dim">: [{</span>
-          <span class="c-key">"id"</span><span class="c-dim">:</span> <span class="c-str">"env-missing"</span><span class="c-dim">,</span>
-          <span class="c-key">"name"</span><span class="c-dim">:</span> <span class="c-str">"MissingEnvironmentVariable"</span><span class="c-dim">,</span>
-          <span class="c-key">"shortDescription"</span><span class="c-dim">: {</span>
-            <span class="c-key">"text"</span><span class="c-dim">:</span> <span class="c-str">"Env var used but not defined"</span>
-          <span class="c-dim">},</span>
-          <span class="c-key">"defaultReportingDescriptor"</span><span class="c-dim">: {</span>
-            <span class="c-key">"level"</span><span class="c-dim">:</span> <span class="c-err">"error"</span>
-          <span class="c-dim">}</span>
-        <span class="c-dim">}]</span>
-      <span class="c-dim">}</span>
-    <span class="c-dim">},</span>
-    <span class="c-key">"results"</span><span class="c-dim">: [{</span>
-      <span class="c-key">"ruleId"</span><span class="c-dim">:</span> <span class="c-str">"env-missing"</span><span class="c-dim">,</span>
-      <span class="c-key">"level"</span><span class="c-dim">:</span> <span class="c-err">"error"</span><span class="c-dim">,</span>
-      <span class="c-key">"message"</span><span class="c-dim">: {</span>
-        <span class="c-key">"text"</span><span class="c-dim">:</span> <span class="c-str">"CUSTOM_VAR is not defined"</span>
-      <span class="c-dim">},</span>
-      <span class="c-key">"locations"</span><span class="c-dim">: [{</span>
-        <span class="c-key">"physicalLocation"</span><span class="c-dim">: {</span>
-          <span class="c-key">"artifactLocation"</span><span class="c-dim">: {</span>
-            <span class="c-key">"uri"</span><span class="c-dim">:</span> <span class="c-str">"index.js"</span>
-          <span class="c-dim">},</span>
-          <span class="c-key">"region"</span><span class="c-dim">: {</span>
-            <span class="c-key">"startLine"</span><span class="c-dim">:</span> <span class="c-num">12</span>
-          <span class="c-dim">}</span>
-        <span class="c-dim">}</span>
-      <span class="c-dim">}]</span>
-    <span class="c-dim">}]</span>
-  <span class="c-dim">}]</span>
-<span class="c-dim">}</span></div>
-        </div>
-      </div>
+	      <div class="fade-up">
+	        <div class="code-window">
+	          <div class="code-window-bar">
+	            <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
+	            <span class="code-window-title">results.sarif</span>
+	          </div>
+	          <div class="code-block"><span class="c-dim">{</span>
+	  <span class="c-key">"results"</span><span class="c-dim">:</span> <span class="c-dim">[</span><span class="c-dim">{</span>
+	    <span class="c-key">"ruleId"</span><span class="c-dim">:</span> <span class="c-str">"env-missing"</span><span class="c-dim">,</span>
+	    <span class="c-key">"level"</span><span class="c-dim">:</span> <span class="c-warn">"warning"</span><span class="c-dim">,</span>
+	    <span class="c-key">"message"</span><span class="c-dim">:</span> <span class="c-dim">{</span>
+	      <span class="c-key">"text"</span><span class="c-dim">:</span> <span class="c-str">"DB_USER: Used in code with fallback/default but not defined in .env"</span>
+	    <span class="c-dim">}</span><span class="c-dim">,</span>
+	    <span class="c-key">"locations"</span><span class="c-dim">:</span> <span class="c-dim">[</span><span class="c-dim">{</span>
+	      <span class="c-key">"physicalLocation"</span><span class="c-dim">:</span> <span class="c-dim">{</span>
+	        <span class="c-key">"artifactLocation"</span><span class="c-dim">:</span> <span class="c-dim">{</span>
+	          <span class="c-key">"uri"</span><span class="c-dim">:</span> <span class="c-str">"handler.js"</span>
+	        <span class="c-dim">}</span>
+	      <span class="c-dim">}</span>
+	    <span class="c-dim">}]</span>
+	  <span class="c-dim">}]</span>
+	<span class="c-dim">}</span></div>
+	        </div>
+	      </div>
 
-    </div>
-  </div>
-</section>
+	    </div>
+
+	    <div class="sarif-gallery fade-up" aria-label="SARIF screenshots">
+	      <div class="sarif-gallery-head">
+	        <h3>What it looks like in GitHub Security</h3>
+	        <p>Real SARIF views from GitHub — click any image to zoom.</p>
+	      </div>
+	      <div class="sarif-carousel">
+	        <button type="button" class="sarif-nav prev" aria-label="Scroll SARIF screenshots left">‹</button>
+	        <div class="sarif-track" tabindex="0">
+	          <button type="button" class="sarif-thumb" data-sarif-full="images/SARIF1.png" data-sarif-caption="Security → Code scanning alerts" aria-label="Open SARIF screenshot 1">
+	            <img src="images/SARIF1.png" alt="GitHub Security showing SARIF code scanning alerts" loading="lazy" decoding="async" />
+	          </button>
+	          <button type="button" class="sarif-thumb" data-sarif-full="images/SARIF2.png" data-sarif-caption="Alert details + locations" aria-label="Open SARIF screenshot 2">
+	            <img src="images/SARIF2.png" alt="GitHub SARIF alert details with file location" loading="lazy" decoding="async" />
+	          </button>
+	          <button type="button" class="sarif-thumb" data-sarif-full="images/SARIF%20List.png" data-sarif-caption="Findings list" aria-label="Open SARIF screenshot 3">
+	            <img src="images/SARIF%20List.png" alt="GitHub SARIF findings list" loading="lazy" decoding="async" />
+	          </button>
+	        </div>
+	        <button type="button" class="sarif-nav next" aria-label="Scroll SARIF screenshots right">›</button>
+	      </div>
+	    </div>
+	  </div>
+	</section>
 
 <!-- ─── Trust ─── -->
 <section class="trust" id="trust">
@@ -1157,25 +1253,25 @@
         </div>
       </details>
 
-      <details class="faq-item fade-up">
-        <summary><span class="faq-q">How do I use EnvGuard Pro in CI?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
-        <div class="faq-answer">
-          <p>Use <code>--ci</code> to integrate EnvGuard Pro into CI/CD. It sets the exit code so your pipeline can fail fast.</p>
-          <p><strong style="color:var(--text);">What happens with <code>--ci</code>:</strong></p>
+	      <details class="faq-item fade-up">
+	        <summary><span class="faq-q">How do I use EnvGuard Pro in CI?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+	        <div class="faq-answer">
+	          <p>Use <code>--ci</code> to integrate EnvGuard Pro into CI/CD. It sets the exit code so your pipeline can fail fast.</p>
+	          <p><strong style="color:var(--text);">What happens with <code>--ci</code>:</strong></p>
           <ul>
             <li>Exits with code 1 if any missing environment variables (errors) are found</li>
             <li>Exits with code 1 if any AWS resources are missing (when using <code>--aws</code>)</li>
             <li>Exits with code 0 if only warnings or info-level issues are found</li>
-          </ul>
-          <p><strong style="color:var(--text);">Examples:</strong></p>
-          <ul>
-            <li><code>envguard-pro scan --ci</code></li>
-            <li><code>envguard-pro scan --ci --strict</code> (fail on any issue including warnings)</li>
-            <li><code>envguard-pro scan --ci --aws</code> (include AWS validation)</li>
-            <li><code>envguard-pro scan --ci --no-detect-fallbacks</code> (treat fallbacks as errors)</li>
-          </ul>
-        </div>
-      </details>
+	          </ul>
+	          <p><strong style="color:var(--text);">Examples:</strong></p>
+	          <ul>
+	            <li><code>envguard scan --ci</code></li>
+	            <li><code>envguard scan --ci --strict</code> (fail on any issue including warnings)</li>
+	            <li><code>envguard scan --ci --aws</code> (include AWS validation)</li>
+	            <li><code>envguard scan --ci --no-detect-fallbacks</code> (treat fallbacks as errors)</li>
+	          </ul>
+	        </div>
+	      </details>
 
       <details class="faq-item fade-up">
         <summary><span class="faq-q">Can it scan env vars defined in shell scripts?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
@@ -1184,12 +1280,12 @@
         </div>
       </details>
 
-      <details class="faq-item fade-up">
-        <summary><span class="faq-q">How do I generate a SARIF report for GitHub Security?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
-        <div class="faq-answer">
-          <p>Run <code>envguard-pro scan --format sarif --output results.sarif</code> and upload the SARIF to GitHub Security in your CI pipeline.</p>
-        </div>
-      </details>
+	      <details class="faq-item fade-up">
+	        <summary><span class="faq-q">How do I generate a SARIF report for GitHub Security?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+	        <div class="faq-answer">
+	          <p>Run <code>envguard scan --format sarif --output results.sarif</code> and upload the SARIF to GitHub Security in your CI pipeline.</p>
+	        </div>
+	      </details>
     </div>
   </div>
 </section>
@@ -1221,6 +1317,16 @@
   </div>
 </footer>
 
+<!-- ─── Lightbox ─── -->
+<div class="lightbox" id="sarifLightbox" aria-hidden="true">
+  <div class="lightbox-backdrop" data-close></div>
+  <figure class="lightbox-figure" role="dialog" aria-modal="true" aria-label="SARIF screenshot preview">
+    <button type="button" class="lightbox-close" aria-label="Close" data-close>✕</button>
+    <img class="lightbox-img" alt="" />
+    <figcaption class="lightbox-cap"></figcaption>
+  </figure>
+</div>
+
 <!-- ─── Scripts ─── -->
 <script>
 // Copy-to-clipboard for install command
@@ -1243,6 +1349,78 @@ function copyInstall(btn) {
     });
   }, { threshold: 0.12 });
   els.forEach(el => obs.observe(el));
+})();
+
+// SARIF screenshot carousel + lightbox
+(function() {
+  const track = document.querySelector('.sarif-track');
+  if (!track) return;
+
+  const prev = document.querySelector('.sarif-nav.prev');
+  const next = document.querySelector('.sarif-nav.next');
+
+  function scrollStep() {
+    const first = track.querySelector('.sarif-thumb');
+    if (!first) return 260;
+    return first.getBoundingClientRect().width + 14;
+  }
+
+  prev?.addEventListener('click', () => track.scrollBy({ left: -scrollStep(), behavior: 'smooth' }));
+  next?.addEventListener('click', () => track.scrollBy({ left: scrollStep(), behavior: 'smooth' }));
+
+  const lightbox = document.getElementById('sarifLightbox');
+  const img = lightbox?.querySelector('.lightbox-img');
+  const cap = lightbox?.querySelector('.lightbox-cap');
+  const closeBtn = lightbox?.querySelector('.lightbox-close');
+  const closeEls = lightbox ? lightbox.querySelectorAll('[data-close]') : [];
+
+  if (!lightbox || !img || !cap) return;
+
+  let previousActive = null;
+  let previousOverflow = '';
+
+  function openLightbox(src, alt, caption) {
+    previousActive = document.activeElement;
+    previousOverflow = document.body.style.overflow || '';
+
+    img.src = src;
+    img.alt = alt || 'SARIF screenshot';
+    cap.textContent = caption || '';
+
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    closeBtn?.focus();
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = previousOverflow;
+
+    img.removeAttribute('src');
+    img.alt = '';
+    cap.textContent = '';
+
+    previousActive?.focus?.();
+    previousActive = null;
+  }
+
+  document.querySelectorAll('[data-sarif-full]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      openLightbox(
+        btn.getAttribute('data-sarif-full'),
+        btn.querySelector('img')?.alt || btn.getAttribute('aria-label') || 'SARIF screenshot',
+        btn.getAttribute('data-sarif-caption') || ''
+      );
+    });
+  });
+
+  closeEls.forEach((el) => el.addEventListener('click', closeLightbox));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+  });
 })();
 </script>
 

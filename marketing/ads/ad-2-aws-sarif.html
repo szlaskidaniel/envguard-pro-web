@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EnvGuard Pro — Ad 2</title>
+    <style>
+      :root {
+        --bg: #0a0e17;
+        --card: rgba(17, 24, 39, 0.76);
+        --card2: rgba(15, 23, 42, 0.62);
+        --border: rgba(255, 255, 255, 0.09);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+        --accent2: #818cf8;
+        --green: #4ade80;
+        --amber: #fbbf24;
+        --red: #f87171;
+        --radius: 18px;
+        --radius-sm: 14px;
+      }
+
+      html,
+      body {
+        width: 1600px;
+        height: 1200px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+          "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .canvas {
+        width: 1600px;
+        height: 1200px;
+        box-sizing: border-box;
+        padding: 70px 80px;
+        position: relative;
+      }
+
+      .mesh {
+        position: absolute;
+        inset: -140px -180px -160px -180px;
+        background:
+          radial-gradient(ellipse 58% 46% at 20% 20%, rgba(56, 189, 248, 0.16), transparent 62%),
+          radial-gradient(ellipse 62% 46% at 80% 24%, rgba(129, 140, 248, 0.16), transparent 62%),
+          radial-gradient(ellipse 46% 42% at 72% 84%, rgba(74, 222, 128, 0.1), transparent 62%),
+          radial-gradient(ellipse 46% 42% at 28% 86%, rgba(251, 191, 36, 0.06), transparent 62%);
+        pointer-events: none;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        gap: 26px;
+      }
+
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.9), rgba(129, 140, 248, 0.9));
+        box-shadow: 0 18px 60px rgba(56, 189, 248, 0.15);
+      }
+      .name {
+        font-size: 20px;
+        font-weight: 850;
+        letter-spacing: -0.02em;
+        color: #fff;
+      }
+      .name span {
+        color: var(--accent);
+      }
+
+      .pill {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(74, 222, 128, 0.35);
+        background: rgba(74, 222, 128, 0.12);
+        color: var(--green);
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 54px;
+        line-height: 1.1;
+        letter-spacing: -0.035em;
+        color: #fff;
+      }
+      .grad {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 18px;
+        max-width: 1100px;
+        line-height: 1.55;
+        margin-top: 10px;
+      }
+
+      .main {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: 0 24px 90px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+      .card-head {
+        padding: 16px 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.44));
+      }
+      .card-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 850;
+        color: #fff;
+        letter-spacing: -0.01em;
+      }
+      .chip {
+        font-size: 12px;
+        color: var(--muted);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 650;
+        white-space: nowrap;
+      }
+      .card-body {
+        padding: 18px;
+      }
+
+      .term {
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        background: rgba(2, 6, 23, 0.7);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+      }
+      .term-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .lights {
+        display: flex;
+        gap: 6px;
+      }
+      .light {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+      .light.red {
+        background: rgba(248, 113, 113, 0.9);
+      }
+      .light.amber {
+        background: rgba(251, 191, 36, 0.9);
+      }
+      .light.green {
+        background: rgba(74, 222, 128, 0.9);
+      }
+
+      pre {
+        margin: 0;
+        padding: 14px 16px 16px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        font-size: 12.8px;
+        line-height: 1.55;
+        white-space: pre;
+        color: rgba(226, 232, 240, 0.92);
+      }
+      .ok {
+        color: var(--green);
+        font-weight: 750;
+      }
+      .warn {
+        color: var(--amber);
+        font-weight: 750;
+      }
+      .err {
+        color: var(--red);
+        font-weight: 750;
+      }
+
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .kpi {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--card2);
+        border-radius: 16px;
+        padding: 14px 14px 12px;
+        position: relative;
+        overflow: hidden;
+      }
+      .kpi::after {
+        content: "";
+        position: absolute;
+        inset: -40px -40px auto auto;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.16), transparent 60%);
+      }
+      .kpi .k {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 800;
+        color: var(--muted);
+      }
+      .kpi .v {
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: #fff;
+        margin-top: 6px;
+      }
+      .kpi .s {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      .list {
+        display: grid;
+        gap: 10px;
+      }
+      .row {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 23, 42, 0.52);
+        border-radius: 16px;
+        padding: 12px 12px 11px;
+        display: grid;
+        grid-template-columns: 34px 1fr auto;
+        gap: 12px;
+        align-items: center;
+      }
+      .badge {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 950;
+        font-size: 14px;
+        letter-spacing: -0.01em;
+      }
+      .badge.red {
+        border: 1px solid rgba(248, 113, 113, 0.35);
+        background: rgba(248, 113, 113, 0.12);
+        color: var(--red);
+      }
+      .badge.amber {
+        border: 1px solid rgba(251, 191, 36, 0.35);
+        background: rgba(251, 191, 36, 0.12);
+        color: var(--amber);
+      }
+      .badge.green {
+        border: 1px solid rgba(74, 222, 128, 0.35);
+        background: rgba(74, 222, 128, 0.12);
+        color: var(--green);
+      }
+      .row .t {
+        font-weight: 850;
+        color: #fff;
+        letter-spacing: -0.01em;
+        margin-bottom: 2px;
+      }
+      .row .d {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .row .meta {
+        font-size: 12px;
+        color: rgba(148, 163, 184, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 6px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .footer {
+        position: absolute;
+        left: 80px;
+        right: 80px;
+        bottom: 34px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: rgba(148, 163, 184, 0.85);
+        font-size: 13px;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(129, 140, 248, 0.95));
+        color: #07101c;
+        font-weight: 900;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        letter-spacing: -0.01em;
+      }
+      .cta small {
+        font-weight: 900;
+        font-family: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="canvas">
+      <div class="mesh" aria-hidden="true"></div>
+
+      <div class="content">
+        <div class="top">
+          <div class="brand">
+            <div class="mark" aria-hidden="true"></div>
+            <div class="name">EnvGuard <span>Pro</span></div>
+          </div>
+          <div class="pill">AWS + SARIF</div>
+        </div>
+
+        <div>
+          <h1>Prove your config is <span class="grad">deployable</span></h1>
+          <div class="sub">
+            Validate environment variables in code, then verify AWS SSM / Secrets Manager (including nested
+            JSON keys) and export SARIF for security dashboards.
+          </div>
+        </div>
+
+        <div class="main">
+          <div class="card" role="group" aria-label="CLI and AWS validation">
+            <div class="card-head">
+              <div class="card-title">CLI Scan + AWS Validation</div>
+              <div class="chip">--aws --aws-deep --format sarif</div>
+            </div>
+            <div class="card-body">
+              <div class="term" aria-label="Terminal output">
+                <div class="term-top">
+                  <div class="lights" aria-hidden="true">
+                    <div class="light red"></div>
+                    <div class="light amber"></div>
+                    <div class="light green"></div>
+                  </div>
+                  envguard-pro • aws checks
+                </div>
+                <pre>$ envguard-pro scan --ci --aws --aws-deep --format sarif --output results.sarif
+
+<span class="ok">✔</span> Serverless references detected (SSM + Secrets)
+<span class="ok">✔</span> SSM parameters validated (14)
+<span class="warn">⚠</span> Missing Secret Keys (1)
+    - myapp/dev/aurora.username (used by AURORA_USERNAME)
+
+<span class="ok">✔</span> SARIF written: results.sarif
+<span class="err">✖</span> Exit 1 (CI): errors present</pre>
+              </div>
+
+              <div class="kpis" aria-label="Key metrics">
+                <div class="kpi">
+                  <div class="k">AWS Resources</div>
+                  <div class="v">15</div>
+                  <div class="s">Validated in seconds</div>
+                </div>
+                <div class="kpi">
+                  <div class="k">SARIF Findings</div>
+                  <div class="v">3</div>
+                  <div class="s">PR + Security tab ready</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" role="group" aria-label="Findings view">
+            <div class="card-head">
+              <div class="card-title">Security Findings (SARIF)</div>
+              <div class="chip">results.sarif</div>
+            </div>
+            <div class="card-body">
+              <div class="list" aria-label="Findings list">
+                <div class="row">
+                  <div class="badge red">E</div>
+                  <div>
+                    <div class="t">Missing required env var</div>
+                    <div class="d">SENTRY_AUTH_TOKEN referenced in .github/workflows/release.yml</div>
+                  </div>
+                  <div class="meta">CI • Blocker</div>
+                </div>
+                <div class="row">
+                  <div class="badge red">E</div>
+                  <div>
+                    <div class="t">AWS secret key missing</div>
+                    <div class="d">myapp/dev/aurora.username referenced by AURORA_USERNAME</div>
+                  </div>
+                  <div class="meta">AWS • Deep</div>
+                </div>
+                <div class="row">
+                  <div class="badge amber">W</div>
+                  <div>
+                    <div class="t">Fallback detected</div>
+                    <div class="d">LOG_LEVEL defaults to "info" (non-fatal)</div>
+                  </div>
+                  <div class="meta">Warn • Triage</div>
+                </div>
+                <div class="row">
+                  <div class="badge green">✔</div>
+                  <div>
+                    <div class="t">SSM parameters valid</div>
+                    <div class="d">/myapp/dev/* validated in us-west-2</div>
+                  </div>
+                  <div class="meta">AWS • OK</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Designed for CI pipelines and security reporting</div>
+        <div class="cta"><small>Ship safer today</small></div>
+      </div>
+    </div>
+  </body>
+</html>
+

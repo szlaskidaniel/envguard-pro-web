@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EnvGuard Pro — Ad 1</title>
+    <style>
+      :root {
+        --bg: #0a0e17;
+        --card: #111827;
+        --card2: #0f172a;
+        --border: rgba(255, 255, 255, 0.09);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+        --accent2: #818cf8;
+        --green: #4ade80;
+        --amber: #fbbf24;
+        --red: #f87171;
+        --radius: 16px;
+        --radius-sm: 12px;
+      }
+
+      html,
+      body {
+        width: 1600px;
+        height: 1200px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+          "Apple Color Emoji", "Segoe UI Emoji";
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .canvas {
+        position: relative;
+        width: 1600px;
+        height: 1200px;
+        padding: 70px 80px 70px 80px;
+        box-sizing: border-box;
+      }
+
+      .mesh {
+        position: absolute;
+        inset: -120px -140px -140px -120px;
+        background:
+          radial-gradient(ellipse 60% 45% at 18% 28%, rgba(56, 189, 248, 0.18), transparent 65%),
+          radial-gradient(ellipse 55% 45% at 82% 32%, rgba(129, 140, 248, 0.15), transparent 62%),
+          radial-gradient(ellipse 40% 40% at 55% 88%, rgba(74, 222, 128, 0.1), transparent 62%),
+          radial-gradient(ellipse 65% 55% at 50% 50%, rgba(255, 255, 255, 0.03), transparent 60%);
+        filter: blur(0px);
+        pointer-events: none;
+      }
+
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 44px 44px;
+        opacity: 0.06;
+        pointer-events: none;
+        mask-image: radial-gradient(circle at 35% 25%, rgba(0, 0, 0, 0.9), transparent 60%);
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        gap: 32px;
+        align-content: start;
+      }
+
+      .brand {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.9), rgba(129, 140, 248, 0.9));
+        box-shadow: 0 14px 40px rgba(56, 189, 248, 0.12);
+        position: relative;
+        overflow: hidden;
+      }
+      .mark::after {
+        content: "";
+        position: absolute;
+        inset: -20px -30px auto auto;
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.45), transparent 55%);
+        transform: rotate(18deg);
+      }
+
+      .logo-name {
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        font-size: 20px;
+        color: #fff;
+      }
+      .logo-name span {
+        color: var(--accent);
+      }
+      .pill {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        background: rgba(56, 189, 248, 0.12);
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .headline {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding-top: 10px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 58px;
+        line-height: 1.05;
+        letter-spacing: -0.035em;
+        color: #fff;
+      }
+      .grad {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .sub {
+        font-size: 20px;
+        color: var(--muted);
+        max-width: 640px;
+        line-height: 1.55;
+      }
+
+      .highlight-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .hcard {
+        border: 1px solid var(--border);
+        background: rgba(17, 24, 39, 0.7);
+        border-radius: 14px;
+        padding: 18px 20px 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hcard:last-child {
+        grid-column: 1 / -1;
+        width: calc(50% - 5px);
+      }
+      .hcard::after {
+        content: "";
+        position: absolute;
+        inset: -40px -40px auto auto;
+        width: 140px;
+        height: 140px;
+        pointer-events: none;
+      }
+      .hcard.c-green::after { background: radial-gradient(circle, rgba(74, 222, 128, 0.14), transparent 60%); }
+      .hcard.c-amber::after { background: radial-gradient(circle, rgba(251, 191, 36, 0.14), transparent 60%); }
+      .hcard.c-blue::after  { background: radial-gradient(circle, rgba(56, 189, 248, 0.14), transparent 60%); }
+      .hcard-label {
+        font-size: 13px;
+        font-weight: 750;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .hcard.c-green .hcard-label { color: var(--green); }
+      .hcard.c-amber .hcard-label { color: var(--amber); }
+      .hcard.c-blue  .hcard-label { color: var(--accent); }
+      .hcard-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+        margin-top: 8px;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+      }
+      .hcard-desc {
+        font-size: 15px;
+        color: var(--muted);
+        margin-top: 7px;
+        line-height: 1.5;
+      }
+
+      .panel {
+        border: 1px solid var(--border);
+        background: rgba(17, 24, 39, 0.78);
+        border-radius: var(--radius);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+        overflow: hidden;
+      }
+      .panel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.5));
+      }
+      .panel-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fff;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      .chip {
+        font-size: 12px;
+        color: var(--muted);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 650;
+      }
+      .panel-body {
+        padding: 18px 18px 16px 18px;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .metric {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 23, 42, 0.55);
+        border-radius: 14px;
+        padding: 14px 14px 12px;
+        position: relative;
+        overflow: hidden;
+      }
+      .metric::after {
+        content: "";
+        position: absolute;
+        inset: -40px -40px auto auto;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.18), transparent 60%);
+        pointer-events: none;
+      }
+      .metric .k {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .metric .v {
+        font-size: 34px;
+        font-weight: 850;
+        color: #fff;
+        letter-spacing: -0.03em;
+        margin-top: 6px;
+      }
+      .metric .s {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      .terminal {
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        background: rgba(2, 6, 23, 0.68);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .term-top {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .lights {
+        display: flex;
+        gap: 6px;
+        margin-right: 6px;
+      }
+      .light {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+      .light.red {
+        background: rgba(248, 113, 113, 0.9);
+      }
+      .light.amber {
+        background: rgba(251, 191, 36, 0.9);
+      }
+      .light.green {
+        background: rgba(74, 222, 128, 0.9);
+      }
+      pre {
+        margin: 0;
+        padding: 14px 16px 16px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        font-size: 13px;
+        line-height: 1.55;
+        color: rgba(226, 232, 240, 0.92);
+        white-space: pre;
+      }
+      .ok {
+        color: var(--green);
+        font-weight: 700;
+      }
+      .warn {
+        color: var(--amber);
+        font-weight: 700;
+      }
+      .err {
+        color: var(--red);
+        font-weight: 700;
+      }
+
+      .feature-row {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .feat {
+        border: 1px solid var(--border);
+        background: rgba(17, 24, 39, 0.7);
+        border-radius: var(--radius);
+        padding: 20px 20px 18px;
+        position: relative;
+        overflow: hidden;
+      }
+      .feat::before {
+        content: "";
+        position: absolute;
+        inset: -60px -60px auto auto;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(129, 140, 248, 0.16), transparent 58%);
+        pointer-events: none;
+      }
+      .feat h3 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: -0.01em;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .feat p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+      .ic {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        background: rgba(56, 189, 248, 0.12);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        font-weight: 850;
+        font-size: 14px;
+      }
+
+      .foot {
+        position: absolute;
+        left: 80px;
+        right: 80px;
+        bottom: 34px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: rgba(148, 163, 184, 0.85);
+        font-size: 13px;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(129, 140, 248, 0.95));
+        color: #07101c;
+        font-weight: 900;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        letter-spacing: -0.01em;
+      }
+      .cta small {
+        font-weight: 900;
+        font-family: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="canvas">
+      <div class="mesh" aria-hidden="true"></div>
+      <div class="grid" aria-hidden="true"></div>
+
+      <div class="content">
+        <div class="brand">
+          <div class="logo">
+            <div class="mark" aria-hidden="true"></div>
+            <div class="logo-name">EnvGuard <span>Pro</span></div>
+          </div>
+          <div class="pill">CI / CD ready</div>
+        </div>
+
+        <div class="headline">
+          <h1>
+            Stop deploys with<br />
+            <span class="grad">missing env vars</span>
+          </h1>
+          <div class="sub">
+            Validate environment variables across your codebase, export SARIF for security workflows, and
+            verify AWS SSM / Secrets before release.
+          </div>
+          <div class="highlight-grid" aria-label="Highlights">
+            <div class="hcard c-green">
+              <div class="hcard-label">Fallback Detection</div>
+              <div class="hcard-title">Know what will crash</div>
+              <div class="hcard-desc">Warns on vars with fallbacks, errors on vars that will break.</div>
+            </div>
+            <div class="hcard c-amber">
+              <div class="hcard-label">SSM / Secrets Manager</div>
+              <div class="hcard-title">Validate before AWS</div>
+              <div class="hcard-desc">Confirm every secret exists in Parameter Store before deploy.</div>
+            </div>
+            <div class="hcard c-blue">
+              <div class="hcard-label">SARIF for GitHub</div>
+              <div class="hcard-title">Results in Security tab</div>
+              <div class="hcard-desc">Zero-config reports that surface straight into GitHub Security.</div>
+            </div>
+            <div class="hcard c-green">
+              <div class="hcard-label">CI / CD Ready</div>
+              <div class="hcard-title">Blocks bad deploys</div>
+              <div class="hcard-desc">Exits non-zero on errors — a drop-in gate for any pipeline.</div>
+            </div>
+            <div class="hcard c-amber">
+              <div class="hcard-label">Git Hooks</div>
+              <div class="hcard-title">Catch issues at commit</div>
+              <div class="hcard-desc">Runs the moment you commit — problems never leave your machine.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" role="group" aria-label="Scan overview panel">
+          <div class="panel-head">
+            <div class="panel-title">Pipeline Scan Overview</div>
+            <div class="chip">envguard-pro scan --ci</div>
+          </div>
+          <div class="panel-body">
+            <div class="metrics">
+              <div class="metric">
+                <div class="k">Files Scanned</div>
+                <div class="v">1,842</div>
+                <div class="s">JS / TS / YAML / Docker</div>
+              </div>
+              <div class="metric">
+                <div class="k">Env Vars Found</div>
+                <div class="v">216</div>
+                <div class="s">Runtime + build-time</div>
+              </div>
+              <div class="metric">
+                <div class="k">Action Items</div>
+                <div class="v">7</div>
+                <div class="s"><span class="err">2</span> errors • <span class="warn">5</span> warnings</div>
+              </div>
+            </div>
+
+            <div class="terminal" aria-label="Terminal output sample">
+              <div class="term-top">
+                <div class="lights" aria-hidden="true">
+                  <div class="light red"></div>
+                  <div class="light amber"></div>
+                  <div class="light green"></div>
+                </div>
+                envguard-pro • summary
+              </div>
+              <pre><span class="ok">✔</span> Loaded config: .envguardrc.json
+<span class="ok">✔</span> Imported env files: set-env.sh, shared-env.sh
+
+<span class="err">✖</span> Missing required variables (2)
+    - STRIPE_SECRET_KEY  (src/payments/stripe.ts:14)
+    - SENTRY_AUTH_TOKEN  (.github/workflows/release.yml:58)
+
+<span class="warn">⚠</span> Missing variables with fallbacks (5)
+    - LOG_LEVEL (defaults to "info")
+    - REDIS_TTL (defaults to 3600)
+
+<span class="ok">✔</span> Exit 1 (CI): errors present</pre>
+            </div>
+          </div>
+        </div>
+
+   
+    
+    </div>
+  </body>
+</html>
+
