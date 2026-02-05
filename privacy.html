@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EnvGuard Pro — Privacy Policy</title>
+  <meta name="description" content="EnvGuard Pro Privacy Policy." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0e17;
+      --bg-card: #111827;
+      --border: rgba(255,255,255,.08);
+      --text: #e2e8f0;
+      --text-muted: #8b95a5;
+      --accent: #38bdf8;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --green: #4ade80;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: .95em;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      color: var(--green);
+    }
+    .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,14,23,.85);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; height:62px; }
+    .nav-logo { font-size: 1.05rem; font-weight: 800; color: #fff; letter-spacing: -.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display:flex; gap:18px; align-items:center; }
+    .nav-links a { color: var(--text-muted); font-size: .9rem; }
+    .nav-links a:hover { color:#fff; text-decoration:none; }
+    main { padding: 56px 0 80px; }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 34px 28px;
+    }
+    h1 { font-size: clamp(1.9rem, 3.3vw, 2.4rem); line-height: 1.15; color: #fff; letter-spacing: -.02em; }
+    .meta { margin-top: 10px; color: var(--text-muted); font-size: .95rem; }
+    .content { margin-top: 22px; }
+    .content h2 { margin-top: 22px; font-size: 1.1rem; color: #fff; }
+    .content p { margin-top: 12px; color: var(--text); }
+    .content ul { margin-top: 10px; margin-left: 20px; }
+    .content li { margin-top: 8px; color: var(--text); }
+    .content strong { color: #fff; }
+    .legal { text-transform: uppercase; letter-spacing: .06em; font-weight: 800; font-size: .78rem; color: var(--text-muted); }
+    footer { border-top: 1px solid var(--border); padding: 24px 0; }
+    .footer-inner { display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .footer-inner p { color: var(--text-muted); font-size: .82rem; }
+    .footer-links { display:flex; gap:18px; flex-wrap:wrap; }
+    .footer-links a { color: var(--text-muted); font-size: .82rem; }
+    .footer-links a:hover { color: var(--accent); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <div class="nav-logo">Env<span>Guard</span> Pro</div>
+      <div class="nav-links">
+        <a href="terms.html">Terms</a>
+        <a href="installation.html">Installation</a>        
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="card">
+        <div class="legal">Legal</div>
+        <h1>Privacy Policy</h1>
+        <div class="meta"><strong>Last Updated:</strong> February 5, 2026</div>
+
+        <div class="content">
+          <p>At EnvGuard Pro, we believe in privacy by design. We are developers, and we understand that your environment variables and secrets are sensitive. This Privacy Policy explains how we handle—or rather, do not handle—your data.</p>
+
+          <h2>1. No Telemetry &amp; Local Execution</h2>
+          <p><strong>We do not collect usage data, telemetry, or analytics from the Software.</strong></p>
+          <ul>
+            <li><strong>Local Processing:</strong> The Software runs locally on your machine. All logic, parsing, and file handling happen on your device.</li>
+            <li><strong>Direct Cloud Connection:</strong> When the Software verifies secrets (e.g., via AWS SSM or Secret Manager), it connects directly from your machine to your cloud provider's API.</li>
+          </ul>
+
+          <h2>AWS Secret Validation Modes</h2>
+          <ul>
+            <li><code>--aws</code> (default): checks existence only; never reads secret values.</li>
+            <li><code>--aws-deep</code>: fetches secret values into local memory to validate nested keys; values are not stored to disk or transmitted.</li>
+          </ul>
+       
+          <p><strong>No "Phone Home":</strong> Your credentials, secrets, environment variables, and configuration files are <strong>never</strong> sent to our servers. We do not have access to your AWS keys or secrets.</p>
+
+          <h2>2. Data We Collect (Sales &amp; Support)</h2>
+          <p>We only process data necessary to facilitate your purchase and provide support.</p>
+          <ul>
+            <li><strong>Purchase Data:</strong> When you buy EnvGuard Pro, our reseller (<strong>Lemon Squeezy</strong>) collects your billing information. As the developer, I receive your email address and name to verify the license and send product updates (e.g., new .tgz versions). I do not have access to your credit card details.</li>
+            <li><strong>Support Inquiries:</strong> If you email us for support, we will use your email address solely to reply to your inquiry.</li>
+          </ul>
+
+          <h2>3. Third-Party Services</h2>
+          <ul>
+            <li><strong>Lemon Squeezy:</strong> Acts as our Merchant of Record. Their privacy policy applies during the checkout process.</li>
+            <li><strong>GitHub Pages:</strong> This website is hosted on GitHub Pages. GitHub may collect technical logs (e.g., IP addresses) for security and reliability purposes.</li>
+          </ul>
+
+          <h2>4. Updates to This Policy</h2>
+          <p>We may update this Privacy Policy to reflect changes in our software (e.g., if we introduce an auto-update feature). Any changes will be posted on this page.</p>
+
+          <h2>5. Contact Us</h2>
+          <p>If you have questions about this policy, please contact: <a href="mailto:envguard@icloud.com">envguard@icloud.com</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="terms.html">Terms</a>
+        <a href="installation.html">Installation</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
