@@ -126,8 +126,8 @@
           <h2>4. Updates to This Policy</h2>
           <p>We may update this Privacy Policy to reflect changes in our software (e.g., if we introduce an auto-update feature). Any changes will be posted on this page.</p>
 
-          <h2>5. Contact Us</h2>
-          <p>If you have questions about this policy, please contact: <a href="mailto:envguard@icloud.com">envguard@icloud.com</a></p>
+          <h2>5. Contact me</h2>
+          <p>If you have questions about this policy, please <a href="#" id="contact-link" aria-label="Contact US">Contact me</a></p>
         </div>
       </div>
     </div>
@@ -143,5 +143,17 @@
       </div>
     </div>
   </footer>
+  <script>
+    (function () {
+      var link = document.getElementById("contact-link");
+      if (!link) return;
+      var encoded = [101, 110, 118, 103, 117, 97, 114, 100, 46, 103, 50, 117, 104, 103, 115, 64, 98, 117, 109, 112, 109, 97, 105, 108, 46, 105, 111];
+      var email = String.fromCharCode.apply(null, encoded);
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = "mailto:" + email;
+      });
+    })();
+  </script>
 </body>
 </html>

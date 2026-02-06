@@ -114,7 +114,7 @@
           <p>We may provide updates to the Software at our discretion. We reserve the right to modify these Terms at any time. Continued use of the Software constitutes acceptance of the modified Terms.</p>
 
           <h2>7. Contact</h2>
-          <p>For support or licensing inquiries, please contact: <a href="mailto:envguard@icloud.com">envguard@icloud.com</a></p>
+          <p>For support or licensing inquiries, please <a href="#" id="contact-link" aria-label="Contact US">Contact me</a></p>
         </div>
       </div>
     </div>
@@ -130,5 +130,17 @@
       </div>
     </div>
   </footer>
+  <script>
+    (function () {
+      var link = document.getElementById("contact-link");
+      if (!link) return;
+      var encoded = [101, 110, 118, 103, 117, 97, 114, 100, 46, 103, 50, 117, 104, 103, 115, 64, 98, 117, 109, 112, 109, 97, 105, 108, 46, 105, 111];
+      var email = String.fromCharCode.apply(null, encoded);
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = "mailto:" + email;
+      });
+    })();
+  </script>
 </body>
 </html>
