@@ -367,22 +367,22 @@
             <div class="mark" aria-hidden="true"></div>
             <div class="name">EnvGuard <span>Pro</span></div>
           </div>
-          <div class="pill">AWS + SARIF</div>
+          <div class="pill">SARIF + GitHub</div>
         </div>
 
         <div>
-          <h1>Prove your config is <span class="grad">deployable</span></h1>
+          <h1>Catch missing env vars before <span class="grad">merge</span></h1>
           <div class="sub">
-            Validate environment variables in code, then verify AWS SSM / Secrets Manager (including nested
-            JSON keys) and export SARIF for security dashboards.
+            EnvGuard Pro exports SARIF that maps cleanly into GitHub Security findings so teams can triage
+            errors and warnings directly from the code scanning UI.
           </div>
         </div>
 
         <div class="main">
-          <div class="card" role="group" aria-label="CLI and AWS validation">
+          <div class="card" role="group" aria-label="CLI SARIF export">
             <div class="card-head">
-              <div class="card-title">CLI Scan + AWS Validation</div>
-              <div class="chip">--aws --aws-deep --format sarif</div>
+              <div class="card-title">CLI Scan + SARIF Export</div>
+              <div class="chip">--format sarif --output results.sarif</div>
             </div>
             <div class="card-body">
               <div class="term" aria-label="Terminal output">
@@ -392,29 +392,28 @@
                     <div class="light amber"></div>
                     <div class="light green"></div>
                   </div>
-                  envguard-pro • aws checks
+                  envguard-pro • code scan
                 </div>
-                <pre>$ envguard-pro scan --ci --aws --aws-deep --format sarif --output results.sarif
+                <pre>$ envguard-pro scan --ci --format sarif --output results.sarif
 
-<span class="ok">✔</span> Serverless references detected (SSM + Secrets)
-<span class="ok">✔</span> SSM parameters validated (14)
-<span class="warn">⚠</span> Missing Secret Keys (1)
-    - myapp/dev/aurora.username (used by AURORA_USERNAME)
+<span class="err">✖</span> env-missing: DB_PWD is not defined in .env (handler.js:1)
+<span class="err">✖</span> env-missing: required variable not defined in .env (handler.js:1)
+<span class="warn">⚠</span> env-missing: DB_USER uses fallback/default but is not in .env
 
 <span class="ok">✔</span> SARIF written: results.sarif
-<span class="err">✖</span> Exit 1 (CI): errors present</pre>
+<span class="err">✖</span> Exit 1 (CI): 2 errors, 1 warning</pre>
               </div>
 
               <div class="kpis" aria-label="Key metrics">
                 <div class="kpi">
-                  <div class="k">AWS Resources</div>
-                  <div class="v">15</div>
-                  <div class="s">Validated in seconds</div>
+                  <div class="k">Open Findings</div>
+                  <div class="v">3</div>
+                  <div class="s">0 closed in this run</div>
                 </div>
                 <div class="kpi">
-                  <div class="k">SARIF Findings</div>
-                  <div class="v">3</div>
-                  <div class="s">PR + Security tab ready</div>
+                  <div class="k">Severity Split</div>
+                  <div class="v">2E / 1W</div>
+                  <div class="s">2 Error • 1 Warning</div>
                 </div>
               </div>
             </div>
@@ -430,34 +429,26 @@
                 <div class="row">
                   <div class="badge red">E</div>
                   <div>
-                    <div class="t">Missing required env var</div>
-                    <div class="d">SENTRY_AUTH_TOKEN referenced in .github/workflows/release.yml</div>
+                    <div class="t">Environment variable used in code but not defined</div>
+                    <div class="d">DB_PWD used in code but not defined in .env (handler.js:1)</div>
                   </div>
-                  <div class="meta">CI • Blocker</div>
+                  <div class="meta">#3 • Error</div>
                 </div>
                 <div class="row">
                   <div class="badge red">E</div>
                   <div>
-                    <div class="t">AWS secret key missing</div>
-                    <div class="d">myapp/dev/aurora.username referenced by AURORA_USERNAME</div>
+                    <div class="t">Environment variable used in code but not defined</div>
+                    <div class="d">Required env var used in code but not defined in .env (handler.js:1)</div>
                   </div>
-                  <div class="meta">AWS • Deep</div>
+                  <div class="meta">#2 • Error</div>
                 </div>
                 <div class="row">
                   <div class="badge amber">W</div>
                   <div>
-                    <div class="t">Fallback detected</div>
-                    <div class="d">LOG_LEVEL defaults to "info" (non-fatal)</div>
+                    <div class="t">Environment variable used in code but not defined</div>
+                    <div class="d">DB_USER uses fallback/default but is not defined in .env (handler.js:1)</div>
                   </div>
-                  <div class="meta">Warn • Triage</div>
-                </div>
-                <div class="row">
-                  <div class="badge green">✔</div>
-                  <div>
-                    <div class="t">SSM parameters valid</div>
-                    <div class="d">/myapp/dev/* validated in us-west-2</div>
-                  </div>
-                  <div class="meta">AWS • OK</div>
+                  <div class="meta">#1 • Warning</div>
                 </div>
               </div>
 
@@ -473,4 +464,3 @@
     </div>
   </body>
 </html>
-
