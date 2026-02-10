@@ -80,6 +80,14 @@
     transition: opacity .2s;
   }
   .nav-links .btn-nav:hover { opacity: .85; text-decoration: none; }
+  .nav-links .btn-nav.buy-cta {
+    box-shadow: 0 0 0 1px rgba(56,189,248,.35), 0 10px 24px rgba(56,189,248,.28);
+    transition: opacity .2s, transform .2s, box-shadow .2s;
+  }
+  .nav-links .btn-nav.buy-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 1px rgba(56,189,248,.5), 0 14px 28px rgba(56,189,248,.34);
+  }
   .lang-switch {
     background: transparent; border: 1px solid var(--border);
     color: var(--text-muted); font-size: .82rem; font-weight: 600;
@@ -689,7 +697,7 @@
       <a href="#trust" data-i18n="common.nav_trust">Trust</a>
       <a href="#faq" data-i18n="common.nav_faq">FAQ</a>
       <!-- <a href="https://github.com/szlaskidaniel/envguard" class="btn-nav">GitHub Free→</a> -->
-      <a href="https://danielszlaski.lemonsqueezy.com/checkout/buy/dbf9e2f8-a6bb-44b3-bfa7-e243c63446bd?embed=1" class="lemonsqueezy-button" data-i18n="common.nav_buy">Buy EnvGuard Pro</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+      <a href="https://danielszlaski.lemonsqueezy.com/checkout/buy/dbf9e2f8-a6bb-44b3-bfa7-e243c63446bd?embed=1" class="lemonsqueezy-button btn-nav buy-cta" data-i18n="common.nav_buy">Buy EnvGuard Pro</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
       <button class="lang-switch" id="langSwitch" aria-label="Switch language"></button>
     </div>
   </div>

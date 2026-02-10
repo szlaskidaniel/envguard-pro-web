@@ -169,7 +169,7 @@
     "project_sub": "U\u017cyj tego, gdy EnvGuard Pro jest udost\u0119pniany jako archiwum do pobrania z prywatnego repozytorium GitHub.",
     "step1_h": "Pobierz pakiet",
     "step1_p": "Pobierz archiwum <code style=\"color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;\">.tgz</code> z prywatnego repozytorium (wymagany dost\u0119p).",
-    "step2_h": "Umie\u015b\u0107 w <code style=\"color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;\">libs/</code>",
+    "step2_h": "Umie\u015b\u0107 np. w <code style=\"color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;\">libs/</code>",
     "step2_p": "Zachowaj archiwum w projekcie, aby instalacje by\u0142y powtarzalne (i dzia\u0142a\u0142y offline).",
     "step3_h": "Zainstaluj przez npm",
     "step3_p": "Wska\u017c npm na lokalne archiwum, aby doda\u0107 je do <code style=\"color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;\">node_modules</code>.",
