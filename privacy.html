@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EnvGuard Pro — Privacy Policy</title>
   <meta name="description" content="EnvGuard Pro Privacy Policy." />
+  <script>
+    (function(){var l=localStorage.getItem('envguard-lang');if(l&&l!=='en'){document.documentElement.classList.add('i18n-loading');document.documentElement.lang=l;}})();
+  </script>
   <style>
+    html.i18n-loading body { opacity: 0; }
+    html.i18n-ready body { transition: opacity .15s ease; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #0a0e17;
@@ -50,6 +55,14 @@
     .nav-links { display:flex; gap:18px; align-items:center; }
     .nav-links a { color: var(--text-muted); font-size: .9rem; }
     .nav-links a:hover { color:#fff; text-decoration:none; }
+    .lang-switch {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); font-size: .82rem; font-weight: 600;
+      padding: 5px 12px; border-radius: 100px; cursor: pointer;
+      transition: color .2s, border-color .2s; letter-spacing: .02em;
+    }
+    .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,.22); }
+    .lang-switch .active-lang { color: var(--accent); }
     main { padding: 56px 0 80px; }
     .card {
       background: var(--bg-card);
@@ -79,8 +92,9 @@
     <div class="container nav-inner">
       <div class="nav-logo">Env<span>Guard</span> Pro</div>
       <div class="nav-links">
-        <a href="terms.html">Terms</a>
-        <a href="installation.html">Installation</a>        
+        <a href="terms.html" data-i18n="common.nav_terms">Terms</a>
+        <a href="installation.html" data-i18n="common.nav_installation">Installation</a>
+        <button class="lang-switch" id="langSwitch" aria-label="Switch language"></button>
       </div>
     </div>
   </nav>
@@ -88,46 +102,46 @@
   <main>
     <div class="container">
       <div class="card">
-        <div class="legal">Legal</div>
-        <h1>Privacy Policy</h1>
-        <div class="meta"><strong>Last Updated:</strong> February 5, 2026</div>
+        <div class="legal" data-i18n="privacy.legal">Legal</div>
+        <h1 data-i18n="privacy.h1">Privacy Policy</h1>
+        <div class="meta" data-i18n-html="privacy.meta_date"><strong>Last Updated:</strong> February 5, 2026</div>
 
         <div class="content">
-          <p>At EnvGuard Pro, we believe in privacy by design. We are developers, and we understand that your environment variables and secrets are sensitive. This Privacy Policy explains how we handle—or rather, do not handle—your data.</p>
+          <p data-i18n="privacy.intro">At EnvGuard Pro, we believe in privacy by design. We are developers, and we understand that your environment variables and secrets are sensitive. This Privacy Policy explains how we handle—or rather, do not handle—your data.</p>
 
-          <h2>1. No Telemetry &amp; Local Execution</h2>
-          <p><strong>We do not collect usage data, telemetry, or analytics from the Software.</strong></p>
+          <h2 data-i18n-html="privacy.h2_telemetry">1. No Telemetry &amp; Local Execution</h2>
+          <p data-i18n-html="privacy.telemetry_p1"><strong>We do not collect usage data, telemetry, or analytics from the Software.</strong></p>
           <ul>
-            <li><strong>Local Processing:</strong> The Software runs locally on your machine. All logic, parsing, and file handling happen on your device.</li>
-            <li><strong>Direct Cloud Connection:</strong> When the Software verifies secrets (e.g., via AWS SSM or Secret Manager), it connects directly from your machine to your cloud provider's API.</li>
+            <li data-i18n-html="privacy.telemetry_li1"><strong>Local Processing:</strong> The Software runs locally on your machine. All logic, parsing, and file handling happen on your device.</li>
+            <li data-i18n-html="privacy.telemetry_li2"><strong>Direct Cloud Connection:</strong> When the Software verifies secrets (e.g., via AWS SSM or Secret Manager), it connects directly from your machine to your cloud provider's API.</li>
           </ul>
 
-          <h2>AWS Secret Validation Modes</h2>
+          <h2 data-i18n="privacy.h2_aws_modes">AWS Secret Validation Modes</h2>
           <ul>
-            <li><code>--aws</code> (default): checks existence only; never reads secret values.</li>
-            <li><code>--aws-deep</code>: fetches secret values into local memory to validate nested keys; values are not stored to disk or transmitted.</li>
-          </ul>
-       
-          <p><strong>No "Phone Home":</strong> Your credentials, secrets, environment variables, and configuration files are <strong>never</strong> sent to our servers. We do not have access to your AWS keys or secrets.</p>
-
-          <h2>2. Data We Collect (Sales &amp; Support)</h2>
-          <p>We only process data necessary to facilitate your purchase and provide support.</p>
-          <ul>
-            <li><strong>Purchase Data:</strong> When you buy EnvGuard Pro, our reseller (<strong>Lemon Squeezy</strong>) collects your billing information. As the developer, I receive your email address and name to verify the license and send product updates (e.g., new .tgz versions). I do not have access to your credit card details.</li>
-            <li><strong>Support Inquiries:</strong> If you email us for support, we will use your email address solely to reply to your inquiry.</li>
+            <li data-i18n-html="privacy.aws_li1"><code>--aws</code> (default): checks existence only; never reads secret values.</li>
+            <li data-i18n-html="privacy.aws_li2"><code>--aws-deep</code>: fetches secret values into local memory to validate nested keys; values are not stored to disk or transmitted.</li>
           </ul>
 
-          <h2>3. Third-Party Services</h2>
+          <p data-i18n-html="privacy.no_phone_home"><strong>No "Phone Home":</strong> Your credentials, secrets, environment variables, and configuration files are <strong>never</strong> sent to our servers. We do not have access to your AWS keys or secrets.</p>
+
+          <h2 data-i18n-html="privacy.h2_data">2. Data We Collect (Sales &amp; Support)</h2>
+          <p data-i18n="privacy.data_intro">We only process data necessary to facilitate your purchase and provide support.</p>
           <ul>
-            <li><strong>Lemon Squeezy:</strong> Acts as our Merchant of Record. Their privacy policy applies during the checkout process.</li>
-            <li><strong>GitHub Pages:</strong> This website is hosted on GitHub Pages. GitHub may collect technical logs (e.g., IP addresses) for security and reliability purposes.</li>
+            <li data-i18n-html="privacy.data_li1"><strong>Purchase Data:</strong> When you buy EnvGuard Pro, our reseller (<strong>Lemon Squeezy</strong>) collects your billing information. As the developer, I receive your email address and name to verify the license and send product updates (e.g., new .tgz versions). I do not have access to your credit card details.</li>
+            <li data-i18n-html="privacy.data_li2"><strong>Support Inquiries:</strong> If you email us for support, we will use your email address solely to reply to your inquiry.</li>
           </ul>
 
-          <h2>4. Updates to This Policy</h2>
-          <p>We may update this Privacy Policy to reflect changes in our software (e.g., if we introduce an auto-update feature). Any changes will be posted on this page.</p>
+          <h2 data-i18n="privacy.h2_third_party">3. Third-Party Services</h2>
+          <ul>
+            <li data-i18n-html="privacy.third_li1"><strong>Lemon Squeezy:</strong> Acts as our Merchant of Record. Their privacy policy applies during the checkout process.</li>
+            <li data-i18n-html="privacy.third_li2"><strong>GitHub Pages:</strong> This website is hosted on GitHub Pages. GitHub may collect technical logs (e.g., IP addresses) for security and reliability purposes.</li>
+          </ul>
 
-          <h2>5. Contact me</h2>
-          <p>If you have questions about this policy, please <a href="#" id="contact-link" aria-label="Contact US">Contact me</a></p>
+          <h2 data-i18n="privacy.h2_updates">4. Updates to This Policy</h2>
+          <p data-i18n="privacy.updates_p">We may update this Privacy Policy to reflect changes in our software (e.g., if we introduce an auto-update feature). Any changes will be posted on this page.</p>
+
+          <h2 data-i18n="privacy.h2_contact">5. Contact me</h2>
+          <p data-i18n-html="privacy.contact_p">If you have questions about this policy, please <a href="#" id="contact-link" aria-label="Contact US">Contact me</a></p>
         </div>
       </div>
     </div>
@@ -135,14 +149,15 @@
 
   <footer>
     <div class="container footer-inner">
-      <p>© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
+      <p data-i18n="common.footer_copy">© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
       <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="terms.html">Terms</a>
-        <a href="installation.html">Installation</a>
+        <a href="index.html" data-i18n="common.nav_home">Home</a>
+        <a href="terms.html" data-i18n="common.nav_terms">Terms</a>
+        <a href="installation.html" data-i18n="common.nav_installation">Installation</a>
       </div>
     </div>
   </footer>
+  <script src="i18n.js"></script>
   <script>
     (function () {
       var link = document.getElementById("contact-link");

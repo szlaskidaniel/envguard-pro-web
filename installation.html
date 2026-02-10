@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Installation — EnvGuard Pro</title>
 <meta name="description" content="Install EnvGuard Pro via npm (global CLI) or from a private tarball (.tgz) in your project. Step-by-step commands and verification." />
+<script>
+  (function(){var l=localStorage.getItem('envguard-lang');if(l&&l!=='en'){document.documentElement.classList.add('i18n-loading');document.documentElement.lang=l;}})();
+</script>
 <style>
+
+  html.i18n-loading body { opacity: 0; }
+  html.i18n-ready body { transition: opacity .15s ease; }
 
   /* ─── Reset & Base ─── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,6 +81,14 @@
     transition: opacity .2s;
   }
   .nav-links .btn-nav:hover { opacity: .85; text-decoration: none; }
+  .lang-switch {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); font-size: .82rem; font-weight: 600;
+    padding: 5px 12px; border-radius: 100px; cursor: pointer;
+    transition: color .2s, border-color .2s; letter-spacing: .02em;
+  }
+  .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,.22); }
+  .lang-switch .active-lang { color: var(--accent); }
 
   /* ─── Hero ─── */
   .hero {
@@ -507,12 +521,13 @@
   <div class="container nav-inner">
     <div class="nav-logo">Env<span>Guard</span> Pro</div>
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="#project">Installation</a>
-      <a href="#verify">Verify</a>
-      <a href="#troubleshoot">Troubleshoot</a>
+      <a href="index.html" data-i18n="common.nav_home">Home</a>
+      <a href="#project" data-i18n="common.nav_installation">Installation</a>
+      <a href="#verify" data-i18n="common.nav_verify">Verify</a>
+      <a href="#troubleshoot" data-i18n="common.nav_troubleshoot">Troubleshoot</a>
       <!-- <a href="https://github.com/szlaskidaniel/envguard" class="btn-nav">GitHub →</a> -->
- <a href="https://danielszlaski.lemonsqueezy.com/checkout/buy/dbf9e2f8-a6bb-44b3-bfa7-e243c63446bd?embed=1" class="lemonsqueezy-button">Buy EnvGuard Pro</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+ <a href="https://danielszlaski.lemonsqueezy.com/checkout/buy/dbf9e2f8-a6bb-44b3-bfa7-e243c63446bd?embed=1" class="lemonsqueezy-button" data-i18n="common.nav_buy">Buy EnvGuard Pro</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+      <button class="lang-switch" id="langSwitch" aria-label="Switch language"></button>
     </div>
   </div>
 </nav>
@@ -520,16 +535,16 @@
 <!-- ─── Hero ─── -->
 <section class="hero hero--compact">
   <div class="container">
-    <div class="hero-crumbs"><a href="index.html">EnvGuard Pro</a> / Installation</div>
-    <div class="hero-badge"><span class="badge badge--green">● Step-by-step</span></div>
-    <h1>Install EnvGuard Pro.<br><span class="grad">From a package tarball.</span></h1>
-    <p class="hero-sub">
+    <div class="hero-crumbs"><a href="index.html">EnvGuard Pro</a> <span data-i18n="installation.hero_crumbs_sep">/ Installation</span></div>
+    <div class="hero-badge"><span class="badge badge--green" data-i18n="installation.hero_badge">● Step-by-step</span></div>
+    <h1 data-i18n-html="installation.hero_h1">Install EnvGuard Pro.<br><span class="grad">From a package tarball.</span></h1>
+    <p class="hero-sub" data-i18n-html="installation.hero_sub">
       EnvGuard Pro is distributed as a <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">.tgz</code> package you install into your project.
       This page includes copy-paste commands and a quick verification checklist.
     </p>
     <div class="hero-actions">
-      <a href="#project" class="btn-primary">Install →</a>
-      <a href="index.html" class="btn-secondary">Back to home</a>
+      <a href="#project" class="btn-primary" data-i18n="installation.hero_cta_primary">Install →</a>
+      <a href="index.html" class="btn-secondary" data-i18n="installation.hero_cta_secondary">Back to home</a>
     </div>
   </div>
 </section>
@@ -538,39 +553,39 @@
 <section class="how" id="project">
   <div class="container">
     <div class="section-head fade-up">
-      <span class="badge section-label">Private distribution</span>
-      <h2 class="section-title">Install from a tarball (.tgz)</h2>
-      <p class="section-sub">Use this when EnvGuard Pro is provided as a downloadable archive from a private GitHub repository.</p>
+      <span class="badge section-label" data-i18n="installation.project_badge">Private distribution</span>
+      <h2 class="section-title" data-i18n="installation.project_title">Install from a tarball (.tgz)</h2>
+      <p class="section-sub" data-i18n="installation.project_sub">Use this when EnvGuard Pro is provided as a downloadable archive from a private GitHub repository.</p>
     </div>
 
     <div class="steps">
       <div class="step fade-up">
         <div class="step-number">1</div>
-        <h3>Obtain the package</h3>
-        <p>Download the <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">.tgz</code> archive from the private repository (requires access).</p>
+        <h3 data-i18n="installation.step1_h">Obtain the package</h3>
+        <p data-i18n-html="installation.step1_p">Download the <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">.tgz</code> archive from the private repository (requires access).</p>
       </div>
       <div class="step fade-up">
         <div class="step-number">2</div>
-        <h3>Place it in <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">libs/</code></h3>
-        <p>Keep the archive in your project so installs are reproducible (and work offline).</p>
+        <h3 data-i18n-html="installation.step2_h">Place it in <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">libs/</code></h3>
+        <p data-i18n="installation.step2_p">Keep the archive in your project so installs are reproducible (and work offline).</p>
       </div>
       <div class="step fade-up">
         <div class="step-number">3</div>
-        <h3>Install via npm</h3>
-        <p>Point npm at the local archive to add it to <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">node_modules</code>.</p>
+        <h3 data-i18n="installation.step3_h">Install via npm</h3>
+        <p data-i18n-html="installation.step3_p">Point npm at the local archive to add it to <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">node_modules</code>.</p>
       </div>
     </div>
 
-    <div class="compare-note fade-up" style="max-width: 920px; margin-left:auto; margin-right:auto;">
+    <div class="compare-note fade-up" style="max-width: 920px; margin-left:auto; margin-right:auto;" data-i18n-html="installation.tip">
       Tip: npm tarballs commonly use the <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">.tgz</code> extension (still a <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">.tar.gz</code> under the hood).
     </div>
 
     <div class="tier-highlight fade-up" style="margin-top: 32px;">
-      <p style="margin-bottom: 18px;">Example layout and commands (adjust the filename/version you received):</p>
+      <p style="margin-bottom: 18px;" data-i18n="installation.example_layout">Example layout and commands (adjust the filename/version you received):</p>
       <div class="tier-snippets">
         <div class="tier-snippet">
           <div class="snippet-head">
-            <span class="snippet-title">Project structure</span>
+            <span class="snippet-title" data-i18n="installation.snippet_structure">Project structure</span>
             <span class="sr-only">Folder layout</span>
           </div>
           <pre>your-project/
@@ -582,7 +597,7 @@
         </div>
         <div class="tier-snippet">
           <div class="snippet-head">
-            <span class="snippet-title">Install</span>
+            <span class="snippet-title" data-i18n="installation.snippet_install">Install</span>
             <button class="copy-btn" data-copy="npm install ./libs/path/to/file.tgz" onclick="copyBtn(this)" aria-label="Copy install command">📋</button>
           </div>
           <pre>$ npm install ./libs/path/to/file.tgz</pre>
@@ -597,12 +612,12 @@
   <div class="container">
     <div class="demo-grid">
       <div class="demo-text fade-up">
-        <span class="badge section-label">Sanity check</span>
-        <h2 class="section-title">Verify the install</h2>
-        <p class="section-sub">Run these commands from your project root. If your setup exposes <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">envguard</code> instead of <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">envguard-pro</code>, the commands are interchangeable.</p>
+        <span class="badge section-label" data-i18n="installation.verify_badge">Sanity check</span>
+        <h2 class="section-title" data-i18n="installation.verify_title">Verify the install</h2>
+        <p class="section-sub" data-i18n-html="installation.verify_sub">Run these commands from your project root. If your setup exposes <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">envguard</code> instead of <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">envguard-pro</code>, the commands are interchangeable.</p>
         <ul class="demo-list">
-          <li><span class="check">✓</span><div><strong>Version</strong><br/>Run <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">npx envguard-pro --version</code> (or <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">npx envguard --version</code>).</div></li>
-          <li><span class="check">✓</span><div><strong>Help output</strong><br/>Confirm the CLI responds with <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">--help</code>.</div></li>
+          <li><span class="check">✓</span><div><strong data-i18n="installation.verify_version_h">Version</strong><br/><span data-i18n-html="installation.verify_version_p">Run <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">npx envguard-pro --version</code> (or <code style="color:var(--green);background:rgba(74,222,128,.08);padding:1px 6px;border-radius:4px;">npx envguard --version</code>).</span></div></li>
+          <li><span class="check">✓</span><div><strong data-i18n="installation.verify_help_h">Help output</strong><br/><span data-i18n-html="installation.verify_help_p">Confirm the CLI responds with <code style="color:var(--text);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;">--help</code>.</span></div></li>
         </ul>
       </div>
 
@@ -628,28 +643,28 @@ $ npx envguard-pro --help
 <section class="features" id="troubleshoot">
   <div class="container">
     <div class="section-head fade-up">
-      <span class="badge section-label">Help</span>
-      <h2 class="section-title">Troubleshooting</h2>
-      <p class="section-sub">Common install issues and quick fixes.</p>
+      <span class="badge section-label" data-i18n="installation.trouble_badge">Help</span>
+      <h2 class="section-title" data-i18n="installation.trouble_title">Troubleshooting</h2>
+      <p class="section-sub" data-i18n="installation.trouble_sub">Common install issues and quick fixes.</p>
     </div>
 
     <div class="features-grid">
       <div class="feature-card fade-up">
         <div class="feature-icon icon-blue">🧰</div>
-        <h3>Command not found</h3>
-        <p>Use <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">npx envguard-pro</code> (or <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">npx envguard</code>) from your project root, or add an npm script, instead of calling a global binary.</p>
+        <h3 data-i18n="installation.trouble_cmd_h">Command not found</h3>
+        <p data-i18n-html="installation.trouble_cmd_p">Use <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">npx envguard-pro</code> (or <code style="color:var(--accent);background:rgba(56,189,248,.08);padding:1px 6px;border-radius:4px;">npx envguard</code>) from your project root, or add an npm script, instead of calling a global binary.</p>
       </div>
 
       <div class="feature-card fade-up">
         <div class="feature-icon icon-green">🧩</div>
-        <h3>Permissions / EACCES</h3>
-        <p>Make sure your project directory is user-writable and avoid running npm with elevated permissions.</p>
+        <h3 data-i18n="installation.trouble_perm_h">Permissions / EACCES</h3>
+        <p data-i18n="installation.trouble_perm_p">Make sure your project directory is user-writable and avoid running npm with elevated permissions.</p>
       </div>
 
       <div class="feature-card fade-up">
         <div class="feature-icon icon-purple">🧪</div>
-        <h3>Node version mismatch</h3>
-        <p>Upgrade Node.js to a modern LTS if you see syntax or runtime errors during install or execution.</p>
+        <h3 data-i18n="installation.trouble_node_h">Node version mismatch</h3>
+        <p data-i18n="installation.trouble_node_p">Upgrade Node.js to a modern LTS if you see syntax or runtime errors during install or execution.</p>
       </div>
     </div>
   </div>
@@ -658,18 +673,19 @@ $ npx envguard-pro --help
 <!-- ─── Footer ─── -->
 <footer>
   <div class="container footer-inner">
-    <p>© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
+    <p data-i18n="common.footer_copy">© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
     <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="#project">Install</a>
-      
-            <a href="https://github.com/szlaskidaniel/envguard/issues/new?labels=PRO">Issues</a>   
+      <a href="index.html" data-i18n="common.nav_home">Home</a>
+      <a href="#project" data-i18n="common.nav_install">Install</a>
+
+            <a href="https://github.com/szlaskidaniel/envguard/issues/new?labels=PRO" data-i18n="common.nav_issues">Issues</a>   
       
     </div>
   </div>
 </footer>
 
 <!-- ─── Scripts ─── -->
+<script src="i18n.js"></script>
 <script>
 function copyBtn(btn) {
   const text = btn?.dataset?.copy;

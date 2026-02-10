@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EnvGuard Pro — Terms and Conditions</title>
   <meta name="description" content="EnvGuard Pro Terms and Conditions." />
+  <script>
+    (function(){var l=localStorage.getItem('envguard-lang');if(l&&l!=='en'){document.documentElement.classList.add('i18n-loading');document.documentElement.lang=l;}})();
+  </script>
   <style>
+    html.i18n-loading body { opacity: 0; }
+    html.i18n-ready body { transition: opacity .15s ease; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #0a0e17;
@@ -40,6 +45,14 @@
     .nav-links { display:flex; gap:18px; align-items:center; }
     .nav-links a { color: var(--text-muted); font-size: .9rem; }
     .nav-links a:hover { color:#fff; text-decoration:none; }
+    .lang-switch {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); font-size: .82rem; font-weight: 600;
+      padding: 5px 12px; border-radius: 100px; cursor: pointer;
+      transition: color .2s, border-color .2s; letter-spacing: .02em;
+    }
+    .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,.22); }
+    .lang-switch .active-lang { color: var(--accent); }
     main { padding: 56px 0 80px; }
     .card {
       background: var(--bg-card);
@@ -69,9 +82,9 @@
     <div class="container nav-inner">
       <div class="nav-logo">Env<span>Guard</span> Pro</div>
       <div class="nav-links">
-        <a href="privacy.html">Privacy</a>
-        <a href="installation.html">Installation</a>
-        
+        <a href="privacy.html" data-i18n="common.nav_privacy">Privacy</a>
+        <a href="installation.html" data-i18n="common.nav_installation">Installation</a>
+        <button class="lang-switch" id="langSwitch" aria-label="Switch language"></button>
       </div>
     </div>
   </nav>
@@ -79,42 +92,42 @@
   <main>
     <div class="container">
       <div class="card">
-        <div class="legal">Legal</div>
-        <h1>Terms and Conditions</h1>
-        <div class="meta"><strong>Last Updated:</strong> February 5, 2026</div>
+        <div class="legal" data-i18n="terms.legal">Legal</div>
+        <h1 data-i18n="terms.h1">Terms and Conditions</h1>
+        <div class="meta" data-i18n-html="terms.meta_date"><strong>Last Updated:</strong> February 5, 2026</div>
 
         <div class="content">
-          <p>Welcome to EnvGuard Pro. Please read these Terms and Conditions ("Terms") carefully before purchasing, downloading, or using the EnvGuard Pro software ("Software").</p>
-          <p>By purchasing or using the Software, you agree to be bound by these Terms and the End User License Agreement (EULA). If you do not agree to these Terms, do not purchase or use the Software.</p>
+          <p data-i18n="terms.intro_p1">Welcome to EnvGuard Pro. Please read these Terms and Conditions ("Terms") carefully before purchasing, downloading, or using the EnvGuard Pro software ("Software").</p>
+          <p data-i18n="terms.intro_p2">By purchasing or using the Software, you agree to be bound by these Terms and the End User License Agreement (EULA). If you do not agree to these Terms, do not purchase or use the Software.</p>
 
-          <h2>1. The Product</h2>
-          <p>EnvGuard Pro is a proprietary command-line interface (CLI) tool designed for managing environment variables and secrets. The Software is licensed, not sold, to you by Daniel Szlaski ("Licensor").</p>
+          <h2 data-i18n="terms.h2_product">1. The Product</h2>
+          <p data-i18n="terms.product_p">EnvGuard Pro is a proprietary command-line interface (CLI) tool designed for managing environment variables and secrets. The Software is licensed, not sold, to you by Daniel Szlaski ("Licensor").</p>
 
-          <h2>2. License Agreement</h2>
-          <p>Your use of the Software is governed by the <strong>ENVGUARD PRO - PROPRIETARY SOFTWARE LICENSE AGREEMENT</strong> included with the Software package.</p>
+          <h2 data-i18n="terms.h2_license">2. License Agreement</h2>
+          <p data-i18n-html="terms.license_p">Your use of the Software is governed by the <strong>ENVGUARD PRO - PROPRIETARY SOFTWARE LICENSE AGREEMENT</strong> included with the Software package.</p>
           <ul>
-            <li><strong>Grant of License:</strong> Upon payment, you are granted a non-exclusive, non-transferable license to use the Software.</li>
-            <li><strong>Restrictions:</strong> You may not redistribute, reverse engineer, or resell the Software.</li>
+            <li data-i18n-html="terms.license_li1"><strong>Grant of License:</strong> Upon payment, you are granted a non-exclusive, non-transferable license to use the Software.</li>
+            <li data-i18n-html="terms.license_li2"><strong>Restrictions:</strong> You may not redistribute, reverse engineer, or resell the Software.</li>
           </ul>
 
-          <h2>3. Payments and Refunds</h2>
+          <h2 data-i18n="terms.h2_payments">3. Payments and Refunds</h2>
           <ul>
-            <li><strong>Merchant of Record:</strong> Our order process is conducted by our online reseller, <strong>Lemon Squeezy</strong>. Lemon Squeezy is the Merchant of Record for all our orders.</li>
-            <li><strong>Refund Policy:</strong> Due to the nature of digital downloadable products (distribution via .tgz files), all sales are final. We do not offer refunds once the software has been downloaded, except where required by consumer protection law.</li>
+            <li data-i18n-html="terms.payments_li1"><strong>Merchant of Record:</strong> Our order process is conducted by our online reseller, <strong>Lemon Squeezy</strong>. Lemon Squeezy is the Merchant of Record for all our orders.</li>
+            <li data-i18n-html="terms.payments_li2"><strong>Refund Policy:</strong> Due to the nature of digital downloadable products (distribution via .tgz files), all sales are final. We do not offer refunds once the software has been downloaded, except where required by consumer protection law.</li>
           </ul>
 
-          <h2>4. Disclaimer of Warranties ("AS IS")</h2>
-          <p><strong>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSOR DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</strong></p>
+          <h2 data-i18n="terms.h2_warranty">4. Disclaimer of Warranties ("AS IS")</h2>
+          <p data-i18n-html="terms.warranty_p"><strong>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSOR DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</strong></p>
 
-          <h2>5. Limitation of Liability</h2>
-          <p><strong>IMPORTANT:</strong> The Software interacts with your cloud infrastructure (e.g., AWS SSM). You are solely responsible for backing up your data and configurations.</p>
-          <p><strong>IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY (INCLUDING DATA LOSS, SYSTEM OUTAGE, OR FINANCIAL LOSS), WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE. THE LICENSOR'S TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID BY YOU FOR THE LICENSE.</strong></p>
+          <h2 data-i18n="terms.h2_liability">5. Limitation of Liability</h2>
+          <p data-i18n-html="terms.liability_p1"><strong>IMPORTANT:</strong> The Software interacts with your cloud infrastructure (e.g., AWS SSM). You are solely responsible for backing up your data and configurations.</p>
+          <p data-i18n-html="terms.liability_p2"><strong>IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY (INCLUDING DATA LOSS, SYSTEM OUTAGE, OR FINANCIAL LOSS), WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE. THE LICENSOR'S TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID BY YOU FOR THE LICENSE.</strong></p>
 
-          <h2>6. Updates and Changes</h2>
-          <p>We may provide updates to the Software at our discretion. We reserve the right to modify these Terms at any time. Continued use of the Software constitutes acceptance of the modified Terms.</p>
+          <h2 data-i18n="terms.h2_updates">6. Updates and Changes</h2>
+          <p data-i18n="terms.updates_p">We may provide updates to the Software at our discretion. We reserve the right to modify these Terms at any time. Continued use of the Software constitutes acceptance of the modified Terms.</p>
 
-          <h2>7. Contact</h2>
-          <p>For support or licensing inquiries, please <a href="#" id="contact-link" aria-label="Contact US">Contact me</a></p>
+          <h2 data-i18n="terms.h2_contact">7. Contact</h2>
+          <p data-i18n-html="terms.contact_p">For support or licensing inquiries, please <a href="#" id="contact-link" aria-label="Contact US">Contact me</a></p>
         </div>
       </div>
     </div>
@@ -122,14 +135,15 @@
 
   <footer>
     <div class="container footer-inner">
-      <p>© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
+      <p data-i18n="common.footer_copy">© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
       <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="installation.html">Installation</a>
+        <a href="index.html" data-i18n="common.nav_home">Home</a>
+        <a href="privacy.html" data-i18n="common.nav_privacy">Privacy</a>
+        <a href="installation.html" data-i18n="common.nav_installation">Installation</a>
       </div>
     </div>
   </footer>
+  <script src="i18n.js"></script>
   <script>
     (function () {
       var link = document.getElementById("contact-link");

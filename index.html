@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>EnvGuard Pro — Environment Variable Validation</title>
 <meta name="description" content="SARIF output, AWS SSM validation, shell-script env files, and CI/CD-ready scanning for your environment variables." />
+<script>
+  (function(){var l=localStorage.getItem('envguard-lang');if(l&&l!=='en'){document.documentElement.classList.add('i18n-loading');document.documentElement.lang=l;}})();
+</script>
 <style>
+  html.i18n-loading body { opacity: 0; }
+  html.i18n-ready body { transition: opacity .15s ease; }
+
   /* ─── Reset & Base ─── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -74,6 +80,14 @@
     transition: opacity .2s;
   }
   .nav-links .btn-nav:hover { opacity: .85; text-decoration: none; }
+  .lang-switch {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted); font-size: .82rem; font-weight: 600;
+    padding: 5px 12px; border-radius: 100px; cursor: pointer;
+    transition: color .2s, border-color .2s; letter-spacing: .02em;
+  }
+  .lang-switch:hover { color: #fff; border-color: rgba(255,255,255,.22); }
+  .lang-switch .active-lang { color: var(--accent); }
 
   /* ─── Hero ─── */
   .hero {
@@ -666,16 +680,17 @@
   <div class="container nav-inner">
     <div class="nav-logo">Env<span>Guard</span> Pro</div>
     <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="installation.html">Installation</a>
-      <a href="#how">How it works</a>
-      <a href="#hooks">Git Hooks</a>
-      <a href="#aws">AWS</a>
-      <a href="#sarif">SARIF</a>
-      <a href="#trust">Trust</a>
-      <a href="#faq">FAQ</a>
-      <!-- <a href="https://github.com/szlaskidaniel/envguard" class="btn-nav">GitHub Free→</a> -->      
-      <a href="https://danielszlaski.lemonsqueezy.com/checkout/buy/dbf9e2f8-a6bb-44b3-bfa7-e243c63446bd?embed=1" class="lemonsqueezy-button">Buy EnvGuard Pro</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+      <a href="#features" data-i18n="common.nav_features">Features</a>
+      <a href="installation.html" data-i18n="common.nav_installation">Installation</a>
+      <a href="#how" data-i18n="common.nav_how">How it works</a>
+      <a href="#hooks" data-i18n="common.nav_hooks">Git Hooks</a>
+      <a href="#aws" data-i18n="common.nav_aws">AWS</a>
+      <a href="#sarif" data-i18n="common.nav_sarif">SARIF</a>
+      <a href="#trust" data-i18n="common.nav_trust">Trust</a>
+      <a href="#faq" data-i18n="common.nav_faq">FAQ</a>
+      <!-- <a href="https://github.com/szlaskidaniel/envguard" class="btn-nav">GitHub Free→</a> -->
+      <a href="https://danielszlaski.lemonsqueezy.com/checkout/buy/dbf9e2f8-a6bb-44b3-bfa7-e243c63446bd?embed=1" class="lemonsqueezy-button" data-i18n="common.nav_buy">Buy EnvGuard Pro</a><script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+      <button class="lang-switch" id="langSwitch" aria-label="Switch language"></button>
     </div>
   </div>
 </nav>
@@ -683,15 +698,15 @@
 <!-- ─── Hero ─── -->
 <section class="hero">
   <div class="container">
-    <div class="hero-badge"><span class="badge badge--green">● Open-source core · Pro features</span></div>
-    <h1>Validate your env vars.<br><span class="grad">Ship with confidence.</span></h1>
-    <p class="hero-sub">
+    <div class="hero-badge"><span class="badge badge--green" data-i18n="index.hero_badge">● Open-source core · Pro features</span></div>
+    <h1 data-i18n-html="index.hero_h1">Validate your env vars.<br><span class="grad">Ship with confidence.</span></h1>
+    <p class="hero-sub" data-i18n="index.hero_sub">
       Catch missing environment variables before they hit production.
       SARIF reports, AWS SSM validation, and smart fallback detection — all in one CLI tool.
     </p>
     <div class="hero-actions">
-      <a href="installation.html" class="btn-primary">Get started →</a>
-      <a href="https://github.com/szlaskidaniel/envguard" class="btn-secondary">View source</a>
+      <a href="installation.html" class="btn-primary" data-i18n="index.hero_cta_primary">Get started →</a>
+      <a href="https://github.com/szlaskidaniel/envguard" class="btn-secondary" data-i18n="index.hero_cta_secondary">View source</a>
     </div>
   </div>
 </section>
@@ -708,46 +723,46 @@
 <section class="features" id="features">
   <div class="container">
     <div class="section-head fade-up">
-      <span class="badge section-label">What's included</span>
-      <h2 class="section-title">Everything you need</h2>
-      <p class="section-sub">A complete toolkit for environment variable hygiene — from local dev to production CI.</p>
+      <span class="badge section-label" data-i18n="index.features_badge">What's included</span>
+      <h2 class="section-title" data-i18n="index.features_title">Everything you need</h2>
+      <p class="section-sub" data-i18n="index.features_sub">A complete toolkit for environment variable hygiene — from local dev to production CI.</p>
     </div>
     <div class="features-grid">
 
       <div class="feature-card pro fade-up">
         <div class="feature-icon icon-blue">📄</div>
-        <h3>SARIF Output</h3>
-        <p>Generate machine-readable SARIF reports that plug directly into the <strong style="color:var(--text)">GitHub Security tab</strong> — zero configuration needed.</p>
+        <h3 data-i18n="index.feat_sarif_h">SARIF Output</h3>
+        <p data-i18n-html="index.feat_sarif_p">Generate machine-readable SARIF reports that plug directly into the <strong style="color:var(--text)">GitHub Security tab</strong> — zero configuration needed.</p>
       </div>
 
       <div class="feature-card pro fade-up">
         <div class="feature-icon icon-amber">☁️</div>
-        <h3>AWS SSM Validation</h3>
-        <p>Validate that every env var exists in <strong style="color:var(--text)">Parameter Store</strong> or <strong style="color:var(--text)">Secrets Manager</strong> before you deploy.</p>
+        <h3 data-i18n="index.feat_aws_h">AWS SSM Validation</h3>
+        <p data-i18n-html="index.feat_aws_p">Validate that every env var exists in <strong style="color:var(--text)">Parameter Store</strong> or <strong style="color:var(--text)">Secrets Manager</strong> before you deploy.</p>
       </div>
 
       <div class="feature-card pro fade-up">
         <div class="feature-icon icon-green">📝</div>
-        <h3>Shell Script Env Files</h3>
-        <p>Parse <code style="color:var(--green);background:rgba(74,222,128,.1);padding:1px 6px;border-radius:4px;">export</code> statements from shell scripts and include them in your scan automatically.</p>
+        <h3 data-i18n="index.feat_shell_h">Shell Script Env Files</h3>
+        <p data-i18n-html="index.feat_shell_p">Parse <code style="color:var(--green);background:rgba(74,222,128,.1);padding:1px 6px;border-radius:4px;">export</code> statements from shell scripts and include them in your scan automatically.</p>
       </div>
 
       <div class="feature-card fade-up">
         <div class="feature-icon icon-purple">🔍</div>
-        <h3>Fallback Detection</h3>
-        <p>Automatically distinguishes between <strong style="color:var(--amber)">warnings</strong> (vars with fallbacks) and <strong style="color:var(--red)">errors</strong> (vars that will crash). Prioritise what matters.</p>
+        <h3 data-i18n="index.feat_fallback_h">Fallback Detection</h3>
+        <p data-i18n-html="index.feat_fallback_p">Automatically distinguishes between <strong style="color:var(--amber)">warnings</strong> (vars with fallbacks) and <strong style="color:var(--red)">errors</strong> (vars that will crash). Prioritise what matters.</p>
       </div>
 
       <div class="feature-card fade-up">
         <div class="feature-icon icon-blue">⚙️</div>
-        <h3>CI/CD Ready</h3>
-        <p>The <code style="color:var(--accent);background:rgba(56,189,248,.1);padding:1px 6px;border-radius:4px;">--ci</code> flag exits non-zero on errors, making it a drop-in gate for any pipeline.</p>
+        <h3 data-i18n="index.feat_ci_h">CI/CD Ready</h3>
+        <p data-i18n-html="index.feat_ci_p">The <code style="color:var(--accent);background:rgba(56,189,248,.1);padding:1px 6px;border-radius:4px;">--ci</code> flag exits non-zero on errors, making it a drop-in gate for any pipeline.</p>
       </div>
 
       <div class="feature-card fade-up">
         <div class="feature-icon icon-green">⚡</div>
-        <h3>Strict Mode</h3>
-        <p>Surface <em>every</em> env var reference — including known runtime vars — for full visibility when you need it.</p>
+        <h3 data-i18n="index.feat_strict_h">Strict Mode</h3>
+        <p data-i18n-html="index.feat_strict_p">Surface <em>every</em> env var reference — including known runtime vars — for full visibility when you need it.</p>
       </div>
 
     </div>
@@ -760,47 +775,47 @@
 <section class="tiers" id="tiers">
   <div class="container">
     <div class="section-head fade-up">
-      <span class="badge section-label">Choose your edition</span>
-      <h2 class="section-title">EnvGuard Free vs Pro</h2>
-      <p class="section-sub">Free nails the basics. Pro is for teams that need SARIF, AWS validation, and shell-script driven env sources.</p>
+      <span class="badge section-label" data-i18n="index.tiers_badge">Choose your edition</span>
+      <h2 class="section-title" data-i18n="index.tiers_title">EnvGuard Free vs Pro</h2>
+      <p class="section-sub" data-i18n="index.tiers_sub">Free nails the basics. Pro is for teams that need SARIF, AWS validation, and shell-script driven env sources.</p>
     </div>
 
     <div class="tier-table-wrap fade-up">
       <table class="tier-table">
         <thead>
           <tr>
-            <th>Capability</th>
-            <th>EnvGuard Free</th>
-            <th>EnvGuard Pro</th>
+            <th data-i18n="index.tier_th_capability">Capability</th>
+            <th data-i18n="index.tier_th_free">EnvGuard Free</th>
+            <th data-i18n="index.tier_th_pro">EnvGuard Pro</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Source availability</strong></td>
-            <td class="free">Fully open source under MIT</td>
-            <td class="pro">Distributed via npm with protected sources</td>
+            <td><strong data-i18n="index.tier_source_label">Source availability</strong></td>
+            <td class="free" data-i18n="index.tier_source_free">Fully open source under MIT</td>
+            <td class="pro" data-i18n="index.tier_source_pro">Distributed via npm with protected sources</td>
           </tr>
           <tr>
-            <td><strong>Custom shell env files</strong></td>
-            <td class="free">Not supported (reads `.env` inputs only)</td>
-            <td class="pro">`envFiles` lets you import reusable `.sh` snippets like `set-env.sh`</td>
+            <td><strong data-i18n="index.tier_shell_label">Custom shell env files</strong></td>
+            <td class="free" data-i18n="index.tier_shell_free">Not supported (reads `.env` inputs only)</td>
+            <td class="pro" data-i18n="index.tier_shell_pro">`envFiles` lets you import reusable `.sh` snippets like `set-env.sh`</td>
           </tr>
           <tr>
-            <td><strong>SARIF output</strong></td>
-            <td class="free">—</td>
-            <td class="pro">`--format sarif` integrates with GitHub Security</td>
+            <td><strong data-i18n="index.tier_sarif_label">SARIF output</strong></td>
+            <td class="free" data-i18n="index.tier_sarif_free">—</td>
+            <td class="pro" data-i18n="index.tier_sarif_pro">`--format sarif` integrates with GitHub Security</td>
           </tr>
           <tr>
-            <td><strong>AWS validation</strong></td>
-            <td class="free">—</td>
-            <td class="pro">`--aws`, `--aws-deep`, profiles, and prefixes for SSM + Secrets</td>
+            <td><strong data-i18n="index.tier_aws_label">AWS validation</strong></td>
+            <td class="free" data-i18n="index.tier_aws_free">—</td>
+            <td class="pro" data-i18n="index.tier_aws_pro">`--aws`, `--aws-deep`, profiles, and prefixes for SSM + Secrets</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="tier-highlight fade-up">
-      <p>Stick with the free edition when you only need local `.env` analysis. Go Pro when you want CI-ready outputs, AWS guardrails, or the ability to load environment variables from curated shell scripts that the rest of your org already uses.</p>
+      <p data-i18n-html="index.tier_highlight">Stick with the free edition when you only need local `.env` analysis. Go Pro when you want CI-ready outputs, AWS guardrails, or the ability to load environment variables from curated shell scripts that the rest of your org already uses.</p>
 	      <div class="tier-snippets">
 	        <div class="tier-snippet">
 	          <span class="tier-snippet-label">.envguardrc.json</span>
@@ -825,55 +840,55 @@
     </div>
     <div class="compare-grid">
       <div class="compare-card fade-up">
-        <h3>Free Edition</h3>
-        <p>Great for quickly checking the obvious env blocks inside serverless.yml.</p>
+        <h3 data-i18n="index.compare_free_h">Free Edition</h3>
+        <p data-i18n="index.compare_free_sub">Great for quickly checking the obvious env blocks inside serverless.yml.</p>
         <ul class="compare-list">
           <li class="compare-item">
             <div class="compare-status good">✓</div>
             <div>
-              <strong>provider.environment</strong>
-              Reads top-level variables like <code style="color:var(--green);font-size:.85rem;">DATABASE_URL</code>.
+              <strong data-i18n="index.compare_free_1_h">provider.environment</strong>
+              <span data-i18n-html="index.compare_free_1_p">Reads top-level variables like <code style="color:var(--green);font-size:.85rem;">DATABASE_URL</code>.</span>
             </div>
           </li>
           <li class="compare-item">
             <div class="compare-status good">✓</div>
             <div>
-              <strong>functions.*.environment</strong>
-              Checks each function block for custom values before deploy.
+              <strong data-i18n="index.compare_free_2_h">functions.*.environment</strong>
+              <span data-i18n="index.compare_free_2_p">Checks each function block for custom values before deploy.</span>
             </div>
           </li>
           <li class="compare-item">
             <div class="compare-status limit">!</div>
             <div>
-              <strong>Resources &amp; secrets</strong>
-              Stops before the AWS resources section, so custom ECS/Lambda containers and deeper secret references stay invisible.
+              <strong data-i18n-html="index.compare_free_3_h">Resources &amp; secrets</strong>
+              <span data-i18n="index.compare_free_3_p">Stops before the AWS resources section, so custom ECS/Lambda containers and deeper secret references stay invisible.</span>
             </div>
           </li>
         </ul>
       </div>
       <div class="compare-card pro fade-up">
-        <h3>Pro Edition</h3>
-        <p>Purpose-built for teams that rely on AWS infrastructure-as-code and want total coverage.</p>
+        <h3 data-i18n="index.compare_pro_h">Pro Edition</h3>
+        <p data-i18n="index.compare_pro_sub">Purpose-built for teams that rely on AWS infrastructure-as-code and want total coverage.</p>
         <ul class="compare-list">
           <li class="compare-item">
             <div class="compare-status more">+</div>
             <div>
-              <strong>Every env source</strong>
-              Sweeps the provider block, each function, and the AWS resources section so ECS, Lambda, and Step Functions containers stay honest.
+              <strong data-i18n="index.compare_pro_1_h">Every env source</strong>
+              <span data-i18n="index.compare_pro_1_p">Sweeps the provider block, each function, and the AWS resources section so ECS, Lambda, and Step Functions containers stay honest.</span>
             </div>
           </li>
           <li class="compare-item">
             <div class="compare-status more">+</div>
             <div>
-              <strong>Nested secret lookups</strong>
-              Understands chained Secrets Manager values (think <code style="color:var(--accent);font-size:.85rem;">aurora.host</code>) and confirms the actual key that will load in prod.
+              <strong data-i18n="index.compare_pro_2_h">Nested secret lookups</strong>
+              <span data-i18n-html="index.compare_pro_2_p">Understands chained Secrets Manager values (think <code style="color:var(--accent);font-size:.85rem;">aurora.host</code>) and confirms the actual key that will load in prod.</span>
             </div>
           </li>
           <li class="compare-item">
             <div class="compare-status more">+</div>
             <div>
-              <strong>Smart AWS context</strong>
-              Resolves SSM paths, understands stages, and tells you which resource owns a missing variable so fixes are fast.
+              <strong data-i18n="index.compare_pro_3_h">Smart AWS context</strong>
+              <span data-i18n="index.compare_pro_3_p">Resolves SSM paths, understands stages, and tells you which resource owns a missing variable so fixes are fast.</span>
             </div>
           </li>
         </ul>
@@ -890,30 +905,30 @@
 <section class="how" id="how">
   <div class="container">
     <div class="section-head fade-up">
-      <span class="badge section-label">Workflow</span>
-      <h2 class="section-title">How it works</h2>
-      <p class="section-sub">From install to insight in seconds.</p>
+      <span class="badge section-label" data-i18n="index.how_badge">Workflow</span>
+      <h2 class="section-title" data-i18n="index.how_title">How it works</h2>
+      <p class="section-sub" data-i18n="index.how_sub">From install to insight in seconds.</p>
     </div>
     <div class="steps">
       <div class="step fade-up">
         <div class="step-number">1</div>
-        <h3>Install</h3>
-        <p>One <code style="color:var(--green);font-size:.85rem;">npm install</code> and you're set — global or project-local.</p>
+        <h3 data-i18n="index.how_step1_h">Install</h3>
+        <p data-i18n-html="index.how_step1_p">One <code style="color:var(--green);font-size:.85rem;">npm install</code> and you're set — global or project-local.</p>
       </div>
       <div class="step fade-up">
         <div class="step-number">2</div>
-        <h3>Configure</h3>
-        <p>Drop a <code style="color:var(--green);font-size:.85rem;">.envguardrc.json</code> in your project root or add options to <code style="color:var(--green);font-size:.85rem;">package.json</code>.</p>
+        <h3 data-i18n="index.how_step2_h">Configure</h3>
+        <p data-i18n-html="index.how_step2_p">Drop a <code style="color:var(--green);font-size:.85rem;">.envguardrc.json</code> in your project root or add options to <code style="color:var(--green);font-size:.85rem;">package.json</code>.</p>
       </div>
 	      <div class="step fade-up">
 	        <div class="step-number">3</div>
-	        <h3>Scan</h3>
-	        <p>Run <code style="color:var(--green);font-size:.85rem;">envguard scan</code>. It statically analyses every file in your project.</p>
+	        <h3 data-i18n="index.how_step3_h">Scan</h3>
+	        <p data-i18n-html="index.how_step3_p">Run <code style="color:var(--green);font-size:.85rem;">envguard scan</code>. It statically analyses every file in your project.</p>
 	      </div>
 	      <div class="step fade-up">
 	        <div class="step-number">4</div>
-	        <h3>Act</h3>
-	        <p>Errors and warnings are reported — fix, ignore, or push straight to GitHub Security via SARIF.</p>
+	        <h3 data-i18n="index.how_step4_h">Act</h3>
+	        <p data-i18n="index.how_step4_p">Errors and warnings are reported — fix, ignore, or push straight to GitHub Security via SARIF.</p>
       </div>
     </div>
   </div>
@@ -925,19 +940,19 @@
     <div class="demo-grid">
 
       <div class="demo-text fade-up">
-        <span class="badge section-label">Git Hooks</span>
-        <h2 class="section-title">Catch env issues before commit or push</h2>
-        <p class="section-sub">
+        <span class="badge section-label" data-i18n="index.hooks_badge">Git Hooks</span>
+        <h2 class="section-title" data-i18n="index.hooks_title">Catch env issues before commit or push</h2>
+        <p class="section-sub" data-i18n-html="index.hooks_sub">
           EnvGuard Pro can install Git hooks that automatically run
           <code style="color:var(--green);font-size:.85rem;">envguard scan --ci</code>
           before each commit or push, catching environment variable issues before they reach your repository.
         </p>
         <ul class="demo-list">
-          <li><span class="check">✓</span><span>The hook script runs <code style="color:var(--green);font-size:.85rem;">npx envguard scan --ci</code> (plus any flags passed via <code style="color:var(--green);font-size:.85rem;">--scan-args</code>) automatically before the Git operation.</span></li>
-          <li><span class="check">✓</span><span>If issues are found, the operation is blocked and the hook prints the scan output.</span></li>
-          <li><span class="check">✓</span><span>To bypass the hook for a single operation, use the standard Git escape hatch: <code style="color:var(--green);font-size:.85rem;">--no-verify</code>.</span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.hooks_li1">The hook script runs <code style="color:var(--green);font-size:.85rem;">npx envguard scan --ci</code> (plus any flags passed via <code style="color:var(--green);font-size:.85rem;">--scan-args</code>) automatically before the Git operation.</span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.hooks_li2">If issues are found, the operation is blocked and the hook prints the scan output.</span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.hooks_li3">To bypass the hook for a single operation, use the standard Git escape hatch: <code style="color:var(--green);font-size:.85rem;">--no-verify</code>.</span></li>
         </ul>
-        <div class="note">
+        <div class="note" data-i18n-html="index.hooks_note">
           <strong>Note:</strong> <code style="color:var(--green);font-size:.85rem;">uninstall-hook</code> will only remove hooks that were created by EnvGuard. If a hook exists but was written by another tool, it will be left untouched.
         </div>
       </div>
@@ -976,13 +991,13 @@
     <div class="demo-grid">
 
       <div class="demo-text fade-up">
-        <span class="badge section-label">Scan output</span>
-        <h2 class="section-title">Scan output you can actually act on</h2>
-        <p class="section-sub">EnvGuard doesn't just list every variable — it tells you which ones will crash and which ones are safely handled.</p>
+        <span class="badge section-label" data-i18n="index.scan_badge">Scan output</span>
+        <h2 class="section-title" data-i18n="index.scan_title">Scan output you can actually act on</h2>
+        <p class="section-sub" data-i18n="index.scan_sub">EnvGuard doesn't just list every variable — it tells you which ones will crash and which ones are safely handled.</p>
         <ul class="demo-list">
-          <li><span class="check">✓</span><span><strong style="color:var(--red);">Errors</strong> — vars that are missing and have no fallback. These will crash at runtime.</span></li>
-          <li><span class="check">✓</span><span><strong style="color:var(--amber);">Warnings</strong> — vars that are missing but have a fallback defined. Low priority.</span></li>
-          <li><span class="check">✓</span><span><strong>Unused &amp; skipped</strong> — variables defined but never referenced, plus known runtime vars like <code style="color:var(--green);font-size:.85rem;">AWS_REGION</code> filtered out by default.</span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.scan_li1"><strong style="color:var(--red);">Errors</strong> — vars that are missing and have no fallback. These will crash at runtime.</span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.scan_li2"><strong style="color:var(--amber);">Warnings</strong> — vars that are missing but have a fallback defined. Low priority.</span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.scan_li3"><strong>Unused &amp; skipped</strong> — variables defined but never referenced, plus known runtime vars like <code style="color:var(--green);font-size:.85rem;">AWS_REGION</code> filtered out by default.</span></li>
         </ul>
       </div>
 
@@ -1051,29 +1066,29 @@
       </div>
 
       <div class="aws-text fade-up">
-        <span class="badge section-label">AWS Integration</span>
-        <h2 class="section-title">Validate against the source of truth</h2>
-        <p class="section-sub">Don't guess. Confirm that every parameter and secret your app needs actually exists in AWS — before deploy day.</p>
+        <span class="badge section-label" data-i18n="index.aws_badge">AWS Integration</span>
+        <h2 class="section-title" data-i18n="index.aws_title">Validate against the source of truth</h2>
+        <p class="section-sub" data-i18n="index.aws_sub">Don't guess. Confirm that every parameter and secret your app needs actually exists in AWS — before deploy day.</p>
         <div class="aws-cards" style="margin-top:28px;">
           <div class="aws-card">
             <div class="aws-icon">🔐</div>
             <div>
-              <h4>Secrets Manager</h4>
-              <p>Validates top-level secrets and, with <strong style="color:var(--text);">--aws-deep</strong>, checks nested JSON keys too.</p>
+              <h4 data-i18n="index.aws_secrets_h">Secrets Manager</h4>
+              <p data-i18n-html="index.aws_secrets_p">Validates top-level secrets and, with <strong style="color:var(--text);">--aws-deep</strong>, checks nested JSON keys too.</p>
             </div>
           </div>
           <div class="aws-card">
             <div class="aws-icon">📦</div>
             <div>
-              <h4>Parameter Store</h4>
-              <p>Auto-discovers SSM paths from your <strong style="color:var(--text);">serverless.yml</strong> or uses a prefix for fallback scanning.</p>
+              <h4 data-i18n="index.aws_param_h">Parameter Store</h4>
+              <p data-i18n-html="index.aws_param_p">Auto-discovers SSM paths from your <strong style="color:var(--text);">serverless.yml</strong> or uses a prefix for fallback scanning.</p>
             </div>
           </div>
           <div class="aws-card">
             <div class="aws-icon">🎯</div>
             <div>
-              <h4>Profile &amp; Region aware</h4>
-              <p>Picks up <code style="color:var(--green);font-size:.85rem;">AWS_REGION</code> and profile settings automatically — or override via flags.</p>
+              <h4 data-i18n-html="index.aws_profile_h">Profile &amp; Region aware</h4>
+              <p data-i18n-html="index.aws_profile_p">Picks up <code style="color:var(--green);font-size:.85rem;">AWS_REGION</code> and profile settings automatically — or override via flags.</p>
             </div>
           </div>
         </div>
@@ -1089,13 +1104,13 @@
     <div class="demo-grid">
 
       <div class="demo-text fade-up">
-        <span class="badge section-label pro" style="background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(129,140,248,.15));border-color:rgba(129,140,248,.3);color:#c4b5fd;">PRO feature</span>
-        <h2 class="section-title">SARIF export for GitHub Security</h2>
-        <p class="section-sub">One flag. Machine-readable output that plugs directly into GitHub's Security tab for compliance tracking — no extra tooling required.</p>
+        <span class="badge section-label pro" style="background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(129,140,248,.15));border-color:rgba(129,140,248,.3);color:#c4b5fd;" data-i18n="index.sarif_badge">PRO feature</span>
+        <h2 class="section-title" data-i18n="index.sarif_title">SARIF export for GitHub Security</h2>
+        <p class="section-sub" data-i18n="index.sarif_sub">One flag. Machine-readable output that plugs directly into GitHub's Security tab for compliance tracking — no extra tooling required.</p>
         <ul class="demo-list" style="margin-top:20px;">
-          <li><span class="check">✓</span><span>Each missing variable becomes a <strong>SARIF rule</strong> with a precise file + line location.</span></li>
-          <li><span class="check">✓</span><span>Errors and warnings map to different <strong>severity levels</strong> — GitHub surfaces them accordingly.</span></li>
-          <li><span class="check">✓</span><span>Drop into any CI step: <code style="color:var(--green);font-size:.85rem;">--format sarif --output results.sarif</code></span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.sarif_li1">Each missing variable becomes a <strong>SARIF rule</strong> with a precise file + line location.</span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.sarif_li2">Errors and warnings map to different <strong>severity levels</strong> — GitHub surfaces them accordingly.</span></li>
+          <li><span class="check">✓</span><span data-i18n-html="index.sarif_li3">Drop into any CI step: <code style="color:var(--green);font-size:.85rem;">--format sarif --output results.sarif</code></span></li>
         </ul>
       </div>
 
@@ -1128,8 +1143,8 @@
 
 	    <div class="sarif-gallery fade-up" aria-label="SARIF screenshots">
 	      <div class="sarif-gallery-head">
-	        <h3>What it looks like in GitHub Security</h3>
-	        <p>Real SARIF views from GitHub — click any image to zoom.</p>
+	        <h3 data-i18n="index.sarif_gallery_h">What it looks like in GitHub Security</h3>
+	        <p data-i18n="index.sarif_gallery_sub">Real SARIF views from GitHub — click any image to zoom.</p>
 	      </div>
 	      <div class="sarif-carousel">
 	        <button type="button" class="sarif-nav prev" aria-label="Scroll SARIF screenshots left">‹</button>
@@ -1154,30 +1169,30 @@
 <section class="trust" id="trust">
   <div class="container">
     <div class="section-head fade-up">
-      <span class="badge section-label">Transparency</span>
-      <h2 class="section-title">Built on trust</h2>
-      <p class="section-sub">Pro is a closed-source extension of an open-source core. Here's exactly what that means.</p>
+      <span class="badge section-label" data-i18n="index.trust_badge">Transparency</span>
+      <h2 class="section-title" data-i18n="index.trust_title">Built on trust</h2>
+      <p class="section-sub" data-i18n="index.trust_sub">Pro is a closed-source extension of an open-source core. Here's exactly what that means.</p>
     </div>
     <div class="trust-grid">
       <div class="trust-card fade-up">
         <div class="trust-icon">🔓</div>
-        <h4>Open-source foundation</h4>
-        <p>The core scanner is fully open at <a href="https://github.com/szlaskidaniel/envguard">github.com/szlaskidaniel/envguard</a>. Audit it freely.</p>
+        <h4 data-i18n="index.trust_open_h">Open-source foundation</h4>
+        <p data-i18n-html="index.trust_open_p">The core scanner is fully open at <a href="https://github.com/szlaskidaniel/envguard">github.com/szlaskidaniel/envguard</a>. Audit it freely.</p>
       </div>
       <div class="trust-card fade-up">
         <div class="trust-icon">🚫</div>
-        <h4>No telemetry</h4>
-        <p>Zero data collection. No analytics, no phone-home. The only network calls are explicit AWS SDK operations when you opt in.</p>
+        <h4 data-i18n="index.trust_telemetry_h">No telemetry</h4>
+        <p data-i18n="index.trust_telemetry_p">Zero data collection. No analytics, no phone-home. The only network calls are explicit AWS SDK operations when you opt in.</p>
       </div>
       <div class="trust-card fade-up">
         <div class="trust-icon">✅</div>
-        <h4>Verified scope</h4>
-        <p>Published under the <strong style="color:var(--text);">@danielszlaski</strong> npm scope with verified ownership.</p>
+        <h4 data-i18n="index.trust_scope_h">Verified scope</h4>
+        <p data-i18n-html="index.trust_scope_p">Published under the <strong style="color:var(--text)">@danielszlaski</strong> npm scope with verified ownership.</p>
       </div>
       <div class="trust-card fade-up">
         <div class="trust-icon">🛡️</div>
-        <h4>Sandboxable</h4>
-        <p>Not comfortable? Audit network traffic or run it in a sandboxed environment. Full flexibility is yours.</p>
+        <h4 data-i18n="index.trust_sandbox_h">Sandboxable</h4>
+        <p data-i18n="index.trust_sandbox_p">Not comfortable? Audit network traffic or run it in a sandboxed environment. Full flexibility is yours.</p>
       </div>
     </div>
   </div>
@@ -1187,23 +1202,23 @@
 <section class="faq" id="faq">
   <div class="container">
     <div class="section-head fade-up">
-      <span class="badge section-label">Help</span>
-      <h2 class="section-title">FAQ</h2>
-      <p class="section-sub">Quick answers to common questions about EnvGuard Pro.</p>
+      <span class="badge section-label" data-i18n="index.faq_badge">Help</span>
+      <h2 class="section-title" data-i18n="index.faq_title">FAQ</h2>
+      <p class="section-sub" data-i18n="index.faq_sub">Quick answers to common questions about EnvGuard Pro.</p>
     </div>
 
     <div class="faq-list">
       <details class="faq-item fade-up">
-        <summary><span class="faq-q">Is EnvGuard Pro intended for beginners?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <summary><span class="faq-q" data-i18n="index.faq_q1">Is EnvGuard Pro intended for beginners?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
         <div class="faq-answer">
-          <p>This tool is intended for professionals. Remember to back up your data before using it.</p>
+          <p data-i18n="index.faq_a1">This tool is intended for professionals. Remember to back up your data before using it.</p>
         </div>
       </details>
 
       <details class="faq-item fade-up">
-        <summary><span class="faq-q">What AWS IAM permissions are required for <code>--aws</code> / <code>--aws-deep</code>?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
-        <div class="faq-answer">
-          <p><strong style="color:var(--text);">Required IAM Permissions:</strong></p>
+        <summary><span class="faq-q" data-i18n-html="index.faq_q2">What AWS IAM permissions are required for <code>--aws</code> / <code>--aws-deep</code>?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <div class="faq-answer" data-i18n-html="index.faq_a2">
+          <p><strong style="color:var(--text)">Required IAM Permissions:</strong></p>
           <ul>
             <li><code>ssm:GetParameter</code> — for SSM Parameter Store validation (<code>--aws</code>)</li>
             <li><code>secretsmanager:DescribeSecret</code> — for Secrets Manager validation (<code>--aws</code>)</li>
@@ -1215,24 +1230,23 @@
       </details>
 
       <details class="faq-item fade-up">
-        <summary><span class="faq-q">Why is the source code obfuscated?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <summary><span class="faq-q" data-i18n="index.faq_q3">Why is the source code obfuscated?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
         <div class="faq-answer">
-          <p>EnvGuard Pro is distributed with obfuscated sources to protect intellectual property while keeping full functionality. The open-source core is available on GitHub.</p>
+          <p data-i18n="index.faq_a3">EnvGuard Pro is distributed with obfuscated sources to protect intellectual property while keeping full functionality. The open-source core is available on GitHub.</p>
         </div>
       </details>
 
       <details class="faq-item fade-up">
-        <summary><span class="faq-q">Does EnvGuard Pro collect telemetry or send data anywhere?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <summary><span class="faq-q" data-i18n="index.faq_q4">Does EnvGuard Pro collect telemetry or send data anywhere?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
         <div class="faq-answer">
-          <p>No. There is no telemetry or data collection. The only network calls are explicit AWS SDK operations when you opt in via <code>--aws</code> / <code>--aws-deep</code>.</p>
+          <p data-i18n-html="index.faq_a4">No. There is no telemetry or data collection. The only network calls are explicit AWS SDK operations when you opt in via <code>--aws</code> / <code>--aws-deep</code>.</p>
         </div>
       </details>
 
       <details class="faq-item fade-up">
-        <summary><span class="faq-q">How do I configure EnvGuard Pro?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <summary><span class="faq-q" data-i18n="index.faq_q5">How do I configure EnvGuard Pro?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
         <div class="faq-answer">
-          <p>Use <code>.envguardrc.json</code> (or <code>package.json</code>) for config. CLI flags override configuration values.</p>
-          <p><strong style="color:var(--text);">Example <code>.envguardrc.json</code>:</strong></p>
+          <div data-i18n-html="index.faq_a5"><p>Use <code>.envguardrc.json</code> (or <code>package.json</code>) for config. CLI flags override configuration values.</p><p><strong style="color:var(--text)">Common overrides:</strong></p><ul><li><code>--strict</code> to enable strict mode regardless of config</li><li><code>--no-detect-fallbacks</code> to treat missing vars as errors (ignore fallbacks)</li><li><code>--env-files set-env.sh</code> to add shell env sources without editing config</li></ul></div>
           <pre class="faq-pre"><code>{
   "ignoreVars": ["MY_COMPANY_VAR", "PLATFORM_VAR"],
   "strict": false,
@@ -1240,33 +1254,27 @@
   "exclude": ["**/build/**", "**/tmp/**"],
   "envFiles": ["set-env.sh", "another-env.sh"]
 }</code></pre>
-          <p><strong style="color:var(--text);">Common overrides:</strong></p>
-          <ul>
-            <li><code>--strict</code> to enable strict mode regardless of config</li>
-            <li><code>--no-detect-fallbacks</code> to treat missing vars as errors (ignore fallbacks)</li>
-            <li><code>--env-files set-env.sh</code> to add shell env sources without editing config</li>
-          </ul>
         </div>
       </details>
 
       <details class="faq-item fade-up">
-        <summary><span class="faq-q">What is fallback detection?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <summary><span class="faq-q" data-i18n="index.faq_q6">What is fallback detection?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
         <div class="faq-answer">
-          <p>Fallback detection distinguishes between <strong style="color:var(--amber);">warnings</strong> (env vars used with fallbacks) and <strong style="color:var(--red);">errors</strong> (env vars that will crash when missing). Disable it with <code>--no-detect-fallbacks</code> or set <code>detectFallbacks</code> to <code>false</code> in config.</p>
+          <p data-i18n-html="index.faq_a6">Fallback detection distinguishes between <strong style="color:var(--amber);">warnings</strong> (env vars used with fallbacks) and <strong style="color:var(--red);">errors</strong> (env vars that will crash when missing). Disable it with <code>--no-detect-fallbacks</code> or set <code>detectFallbacks</code> to <code>false</code> in config.</p>
         </div>
       </details>
 
 	      <details class="faq-item fade-up">
-	        <summary><span class="faq-q">How do I use EnvGuard Pro in CI?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
-	        <div class="faq-answer">
+	        <summary><span class="faq-q" data-i18n="index.faq_q7">How do I use EnvGuard Pro in CI?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+	        <div class="faq-answer" data-i18n-html="index.faq_a7">
 	          <p>Use <code>--ci</code> to integrate EnvGuard Pro into CI/CD. It sets the exit code so your pipeline can fail fast.</p>
-	          <p><strong style="color:var(--text);">What happens with <code>--ci</code>:</strong></p>
+	          <p><strong style="color:var(--text)">What happens with <code>--ci</code>:</strong></p>
           <ul>
             <li>Exits with code 1 if any missing environment variables (errors) are found</li>
             <li>Exits with code 1 if any AWS resources are missing (when using <code>--aws</code>)</li>
             <li>Exits with code 0 if only warnings or info-level issues are found</li>
 	          </ul>
-	          <p><strong style="color:var(--text);">Examples:</strong></p>
+	          <p><strong style="color:var(--text)">Examples:</strong></p>
 	          <ul>
 	            <li><code>envguard scan --ci</code></li>
 	            <li><code>envguard scan --ci --strict</code> (fail on any issue including warnings)</li>
@@ -1277,16 +1285,16 @@
 	      </details>
 
       <details class="faq-item fade-up">
-        <summary><span class="faq-q">Can it scan env vars defined in shell scripts?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+        <summary><span class="faq-q" data-i18n="index.faq_q8">Can it scan env vars defined in shell scripts?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
         <div class="faq-answer">
-          <p>Yes. Use <code>envFiles</code> in <code>.envguardrc.json</code> or pass <code>--env-files</code> to include <code>export</code>-based variables from shell scripts like <code>set-env.sh</code>.</p>
+          <p data-i18n-html="index.faq_a8">Yes. Use <code>envFiles</code> in <code>.envguardrc.json</code> or pass <code>--env-files</code> to include <code>export</code>-based variables from shell scripts like <code>set-env.sh</code>.</p>
         </div>
       </details>
 
 	      <details class="faq-item fade-up">
-	        <summary><span class="faq-q">How do I generate a SARIF report for GitHub Security?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
+	        <summary><span class="faq-q" data-i18n="index.faq_q9">How do I generate a SARIF report for GitHub Security?</span><span class="faq-icon" aria-hidden="true">+</span></summary>
 	        <div class="faq-answer">
-	          <p>Run <code>envguard scan --format sarif --output results.sarif</code> and upload the SARIF to GitHub Security in your CI pipeline.</p>
+	          <p data-i18n-html="index.faq_a9">Run <code>envguard scan --format sarif --output results.sarif</code> and upload the SARIF to GitHub Security in your CI pipeline.</p>
 	        </div>
 	      </details>
     </div>
@@ -1297,10 +1305,10 @@
 <section class="cta">
   <div class="container">
     <div class="cta-box fade-up">
-      <h2>Ready to stop guessing about your env vars?</h2>
-      <p>Install in seconds. Catch issues in minutes. Ship with the confidence that your environment is solid.</p>
+      <h2 data-i18n="index.cta_h">Ready to stop guessing about your env vars?</h2>
+      <p data-i18n="index.cta_p">Install in seconds. Catch issues in minutes. Ship with the confidence that your environment is solid.</p>
       <div class="cta-actions">
-        <a href="#install" class="btn-primary">Install now →</a>
+        <a href="#install" class="btn-primary" data-i18n="index.cta_btn">Install now →</a>
         <!-- <a href="https://github.com/szlaskidaniel/envguard" class="btn-secondary">Browse source</a> -->
       </div>
     </div>
@@ -1310,12 +1318,12 @@
 <!-- ─── Footer ─── -->
 <footer>
   <div class="container footer-inner">
-    <p>© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
+    <p data-i18n="common.footer_copy">© 2026 Daniel Szlaski · EnvGuard Pro · PROPRIETARY License</p>
     <div class="footer-links">
-      <a href="installation.html">Installation</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>      
-      <a href="https://github.com/szlaskidaniel/envguard/issues/new?labels=PRO">Issues</a>      
+      <a href="installation.html" data-i18n="common.nav_installation">Installation</a>
+      <a href="privacy.html" data-i18n="common.nav_privacy">Privacy</a>
+      <a href="terms.html" data-i18n="common.nav_terms">Terms</a>
+      <a href="https://github.com/szlaskidaniel/envguard/issues/new?labels=PRO" data-i18n="common.nav_issues">Issues</a>      
     </div>
   </div>
 </footer>
@@ -1331,6 +1339,7 @@
 </div>
 
 <!-- ─── Scripts ─── -->
+<script src="i18n.js"></script>
 <script>
 // Copy-to-clipboard for install command
 function copyInstall(btn) {
