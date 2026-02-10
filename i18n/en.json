@@ -26,7 +26,6 @@
     "hero_h1": "Validate your env vars.<br><span class=\"grad\">Ship with confidence.</span>",
     "hero_sub": "Catch missing environment variables before they hit production. SARIF reports, AWS SSM validation, and smart fallback detection \u2014 all in one CLI tool.",
     "hero_cta_primary": "Get started \u2192",
-    "hero_cta_secondary": "View source",
     "copy_install_label": "Copy install command",
     "features_badge": "What's included",
     "features_title": "Everything you need",
